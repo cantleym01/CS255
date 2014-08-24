@@ -16,17 +16,18 @@ void Controller::runConwayGame()
     //run infinitely
     while (true)
     {
-        checkGameConditions(); //check where to change cells
         turnNumber++;
-
         cout << "Generation: " << turnNumber << " --- Alive Cells: " << aliveCells << endl;
 
-        // turn on to stop @ 1 page of log entries
-        if (turnNumber == 200)
+        //note The thing wrong is alive cell tracking!
+        checkGameConditions(); //check where to change cells
+
+        /*** turn on to stop @ 1 page of log entries
+        if (turnNumber == 295)
         {
             break;
         }
-
+        */
     } //end infinite loop
 } //end game run
 
@@ -45,12 +46,20 @@ void Controller::initializeMap()
                 life[i][j].aliveQuery = true;
                 life[i][j].beenAliveQuery = true;
                 aliveCells++;
-
                 //make sure they did what they were suppose to
                 assert (life[i][j].aliveQuery != false);
                 assert (life[i][j].beenAliveQuery != false);
                 assert (aliveCells != 0);
             } //end alive setting
+            else //set the cell to dead
+            {
+                life[i][j].aliveQuery = false;
+                life[i][j].beenAliveQuery = false;
+
+                //make sure they did what they were suppose to
+                assert (life[i][j].aliveQuery != true);
+                assert (life[i][j].beenAliveQuery != true);
+            }
         } //end column search
     } //end row search
 } //end initializeMap
