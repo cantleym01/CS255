@@ -5,6 +5,7 @@ Controller::Controller()
     aliveCells = 0;
     turnNumber = 0;
     mapSize = 300;
+    lifeChance = 20;
 } //constructor
 
 Controller::~Controller(){} //destructor
@@ -38,8 +39,8 @@ void Controller::initializeMap()
     {
         for (int j = 0; j < mapSize; j++) //column
         {
-            //the cell has a 1 in 10 chance of becoming alive, so it covers the map in ~10% of live cells
-            int randomChance = rand() % 10; //0-9
+            //the cell has a 1 in 10 chance of becoming alive, so it covers the map in ~5% of live cells
+            int randomChance = rand() % lifeChance; //0-19
             if (randomChance == 0) //if it is 0
             {
                 //set the queries and math

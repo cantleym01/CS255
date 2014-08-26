@@ -34,7 +34,7 @@ protected:
     void sideAdds(int i, int j, int left, int right, int up, int down, int& retVal); //check the sides around a cell
 
 private:
-    int turnNumber, aliveCells, mapSize; //turnNumber is the current generation, aliveCells is how many are currently alive, and mapSize is an easy reference thing
+    int turnNumber, aliveCells, mapSize, lifeChance; //turnNumber is the current generation, aliveCells is how many are currently alive, and mapSize is an easy reference thing
     Cell life[300][300]; //map for the game is 90000 cells,
                 //it should be enough to where the user doesn't know it's not infinite
 };
