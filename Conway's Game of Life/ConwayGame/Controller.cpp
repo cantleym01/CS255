@@ -4,8 +4,8 @@ Controller::Controller()
 {
     aliveCells = 0;
     turnNumber = 0;
-    mapSize = 300;
-    lifeChance = 20;
+    mapSize = 150;
+    lifeChance = 8;
 } //constructor
 
 Controller::~Controller(){} //destructor
@@ -22,13 +22,15 @@ void Controller::runConwayGame()
 
         //note The thing wrong is alive cell tracking!
         checkGameConditions(); //check where to change cells
+        checkCells(); //see whether or not to make cells alive or keep them dead
 
-        /*** turn on to stop @ 1 page of log entries
+        /**turn on to stop @ 1 page of log entries
         if (turnNumber == 295)
         {
             break;
         }
         */
+
     } //end infinite loop
 } //end game run
 
@@ -110,7 +112,6 @@ void Controller::checkGameConditions()
                 {
                     deadRegularChecks(i, j);
                 }//end regular check
-
             } //end dead
         } //end column search
     } //end row search
@@ -163,9 +164,7 @@ void Controller::aliveCornerChecks(int i, int j) //i = rows, j = columns
 
     if (checkNum <= 1) //if it has reached conditions to kill it, do a drive-by, else it lives on
     {
-        life[i][j].aliveQuery = false; //it's dead jim
-
-        aliveCells--; //decrement how many alive cells there are
+        life[i][j].turnAlive = false; //it's dead jim
     } //end kill
 } //end alive corner check
 
@@ -233,9 +232,7 @@ void Controller::aliveSideChecks(int i, int j) //i = rows, j = columns
     //if it has too many or too little neighboring cells, kill it, else nothing happens and it lives on to next generation
     if (checkNums < 2 || checkNums > 3)
     {
-        life[i][j].aliveQuery = false; //it's dead jim
-
-        aliveCells--; //decrement how many alive cells there are
+        life[i][j].turnAlive = false; //it's dead jim
     } //end killing
 } //end alive side check
 
@@ -250,9 +247,7 @@ void Controller::aliveRegularChecks(int i, int j) //i = rows, j = columns
     //if it has too many or too little neighboring cells, snuff it, else nothing happens and it lives on to next generation
     if (checkNums < 2 || checkNums > 3)
     {
-        life[i][j].aliveQuery = false; //it's dead jim
-
-        aliveCells--; //decrement how many alive cells there are
+        life[i][j].turnAlive = false; //it's dead jim
     } //end killing
 
     return;
@@ -292,9 +287,7 @@ void Controller::deadCornerChecks(int i, int j) //i = rows, j = columns
     life[i][j + colAdd].aliveQuery == true &&
     life[i + rowAdd][j + colAdd].aliveQuery == true) //if it meets conditions to make it alive, do it
     {
-        life[i][j].aliveQuery = true; //IT'S ALIVE
-
-        aliveCells++; //increment how many alive cells there are
+        life[i][j].turnAlive = true; //IT'S ALIVE
 
         if (life[i][j].beenAliveQuery == false) //if it's always been dead, tell the cell it has lived at one point
         {
@@ -366,9 +359,7 @@ void Controller::deadSideChecks(int i, int j) //i = rows, j = columns
     //check if we make this cell Frankenstein's Monster
     if (checkNums == 3) //if it meets conditions to make it alive, do it
     {
-        life[i][j].aliveQuery = true; //IT'S ALIVE
-
-        aliveCells++; //increment how many alive cells there are
+        life[i][j].turnAlive = true; //IT'S ALIVE
 
         if (life[i][j].beenAliveQuery == false) //if it's always been dead, tell the cell it has lived at one point
         {
@@ -388,9 +379,7 @@ void Controller::deadRegularChecks(int i, int j) //i = rows, j = columns
     //check if this cell is a zombie
     if (checkNums == 3) //if it meets conditions to make it alive, do it
     {
-        life[i][j].aliveQuery = true; //IT'S ALIVE
-
-        aliveCells++; //increment how many alive cells there are
+        life[i][j].turnAlive = true; //IT'S ALIVE
 
         if (life[i][j].beenAliveQuery == false) //if it's always been dead, tell the cell it has lived at one point
         {
@@ -441,4 +430,23 @@ void Controller::sideAdds(int i, int j, int left, int right, int up, int down, i
     } //end L check
 }
 
-
+void Controller::checkCells()
+{
+    for (int i = 0; i < mapSize - 1; i++)
+    {
+        for (int j = 0; j < mapSize - 1; j++)
+        {
+            //if it needs to be made alive, and is not already...
+            if (life[i][j].turnAlive == true && life[i][j].aliveQuery != true)
+            {
+                life[i][j].aliveQuery = true; //turn into zombie
+                aliveCells++; //increment how many alive cells there are
+            }
+            else if (life[i][j].turnAlive == false && life[i][j].aliveQuery != false)
+            {
+                life[i][j].aliveQuery = false; //kill it
+                aliveCells--; //decrement how many alive cells there are
+            }
+        } //end column
+    } //end row
+}

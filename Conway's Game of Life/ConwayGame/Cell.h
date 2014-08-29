@@ -10,7 +10,7 @@ class Cell
 public:
     Cell(); //constructor
     ~Cell(); //destructor
-    bool aliveQuery, beenAliveQuery; //bools for checking status (is it currently alive, and has it ever been alive)
+    bool aliveQuery, beenAliveQuery, turnAlive; //bools for checking status (is it currently alive, and has it ever been alive, and will it turn alive next turn)
 };
 
 #endif

@@ -32,10 +32,11 @@ protected:
     //without being seperate there would be overcounting
     void cornerAdds(int i, int j, int left, int right, int up, int down, int& retVal); //check the corners around a cell
     void sideAdds(int i, int j, int left, int right, int up, int down, int& retVal); //check the sides around a cell
+    void checkCells(); //check for the cell's "turnAlive" bool and turn it alive if true
 
 private:
     int turnNumber, aliveCells, mapSize, lifeChance; //turnNumber is the current generation, aliveCells is how many are currently alive, and mapSize is an easy reference thing
-    Cell life[300][300]; //map for the game is 90000 cells,
+    Cell life[150][150]; //map for the game is 22500 cells,
                 //it should be enough to where the user doesn't know it's not infinite
 };
 

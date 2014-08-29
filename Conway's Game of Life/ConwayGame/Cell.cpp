@@ -1,4 +1,5 @@
 #include "Cell.h"
 
-Cell::Cell(){} //constructor
+Cell::Cell()
+{turnAlive = false;} //constructor
 Cell::~Cell(){} //destructor
