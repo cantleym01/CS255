@@ -5,6 +5,7 @@
 #include <cassert>
 #include <stdlib.h>
 #include <ctime>
+# include <conio.h> //library uses for character press to continue
 #include "Cell.h"
 
 using namespace std;
@@ -33,11 +34,14 @@ protected:
     void cornerAdds(int i, int j, int left, int right, int up, int down, int& retVal); //check the corners around a cell
     void sideAdds(int i, int j, int left, int right, int up, int down, int& retVal); //check the sides around a cell
     void checkCells(); //check for the cell's "turnAlive" bool and turn it alive if true
+    void display(); //do a rudementary display that will show a small, random portion of the map
+                //it is possible for it to show all dead cells, or alot of activity
 
 private:
     int turnNumber, aliveCells, mapSize, lifeChance; //turnNumber is the current generation, aliveCells is how many are currently alive, and mapSize is an easy reference thing
     Cell life[150][150]; //map for the game is 22500 cells,
                 //it should be enough to where the user doesn't know it's not infinite
+    int displayV, displayH, disI, disJ; //display Vertical and Horizontal dimensions, and the up-left corner coordinates
 };
 
 #endif

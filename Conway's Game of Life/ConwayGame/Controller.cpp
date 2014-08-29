@@ -1,11 +1,14 @@
 #include "Controller.h"
+# include <conio.h>
 
 Controller::Controller()
 {
     aliveCells = 0;
     turnNumber = 0;
     mapSize = 150;
-    lifeChance = 8;
+    lifeChance = 5;
+    displayV = 11;
+    displayH = 40;
 } //constructor
 
 Controller::~Controller(){} //destructor
@@ -17,20 +20,14 @@ void Controller::runConwayGame()
     //run infinitely
     while (true)
     {
+        getch(); //wait for any input to do the next section of output (can be held down to keep going)
         turnNumber++;
         cout << "Generation: " << turnNumber << " --- Alive Cells: " << aliveCells << endl;
+        display(); //display a random portion of the map, comment this out to turn that off
 
         //note The thing wrong is alive cell tracking!
         checkGameConditions(); //check where to change cells
         checkCells(); //see whether or not to make cells alive or keep them dead
-
-        /**turn on to stop @ 1 page of log entries
-        if (turnNumber == 295)
-        {
-            break;
-        }
-        */
-
     } //end infinite loop
 } //end game run
 
@@ -65,6 +62,20 @@ void Controller::initializeMap()
             }
         } //end column search
     } //end row search
+
+    //get random display map coordinates
+    disI = rand() % mapSize; // 0 - (mapSize - 1)
+    disJ = rand() % mapSize; // 0 - (mapSize - 1)
+
+    //if they are out of bounds, fix them
+    while (disI >= (mapSize - 1) + displayV)
+    {
+        disI = rand() % mapSize; // 0 - (mapSize - 1)
+    }
+    while (disJ >= (mapSize - 1) + displayH)
+    {
+        disJ = rand() % mapSize; // 0 - (mapSize - 1)
+    }
 } //end initializeMap
 
 void Controller::checkGameConditions()
@@ -448,5 +459,24 @@ void Controller::checkCells()
                 aliveCells--; //decrement how many alive cells there are
             }
         } //end column
+    } //end row
+}
+
+void Controller::display()
+{
+    for (int i = disI; i < displayV + disI; i++)
+    {
+        for (int j = disJ; j < displayH + disJ; j++)
+        {
+            if (life[i][j].aliveQuery == true)
+            {
+                cout << "o "; //living cell
+            }
+            else
+            {
+                cout << "x "; //dead cell
+            }
+        } //end column
+        cout << endl;
     } //end row
 }
