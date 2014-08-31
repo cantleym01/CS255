@@ -6,7 +6,7 @@
 	<cassert>
 	"Controller.h"
 
-1409281305 c:\users\michael\documents\github\cs255\conway's game of life\conwaygame\controller.h
+1409282783 c:\users\michael\documents\github\cs255\conway's game of life\conwaygame\controller.h
 	<iostream>
 	<cassert>
 	<stdlib.h>
@@ -20,7 +20,6 @@
 1409275768 source:c:\users\michael\documents\github\cs255\conway's game of life\conwaygame\cell.cpp
 	"Cell.h"
 
-1409281935 source:c:\users\michael\documents\github\cs255\conway's game of life\conwaygame\controller.cpp
+1409337279 source:c:\users\michael\documents\github\cs255\conway's game of life\conwaygame\controller.cpp
 	"Controller.h"
-	<conio.h>
 

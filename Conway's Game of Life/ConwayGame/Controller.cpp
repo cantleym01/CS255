@@ -1,12 +1,11 @@
 #include "Controller.h"
-# include <conio.h>
 
 Controller::Controller()
 {
     aliveCells = 0;
     turnNumber = 0;
     mapSize = 150;
-    lifeChance = 5;
+    lifeChance = 1;
     displayV = 11;
     displayH = 40;
 } //constructor
@@ -33,6 +32,7 @@ void Controller::runConwayGame()
 
 void Controller::initializeMap()
 {
+    assert (displayH <= mapSize && displayV <= mapSize);
     //initialize the random game
     for (int i = 0; i < mapSize; i++) //row
     {
