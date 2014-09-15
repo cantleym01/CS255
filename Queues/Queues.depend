@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1410663854 source:c:\users\michael\documents\github\cs255\queues\main.cpp
+	<iostream>
+	<stdlib.h>
+	<time.h>
+	"Controller.h"
+
+1410741947 c:\users\michael\documents\github\cs255\queues\controller.h
+	<iostream>
+	<vector>
+	<stdlib.h>
+	<sstream>
+	<math.h>
+	<cassert>
+	"Customer.h"
+
+1410717815 c:\users\michael\documents\github\cs255\queues\customer.h
+	<iostream>
+
+1410748829 source:c:\users\michael\documents\github\cs255\queues\controller.cpp
+	"Controller.h"
+
+1410718014 source:c:\users\michael\documents\github\cs255\queues\customer.cpp
+	"Customer.h"
+
