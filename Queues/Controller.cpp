@@ -77,6 +77,7 @@ void Controller::runSim()
         case 3:
             oneToMultAlgorithm();
             break;
+
         }
         //reset data
         line1.clear();

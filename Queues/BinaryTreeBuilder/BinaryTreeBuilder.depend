@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1411004380 source:c:\users\michael\documents\binarytreebuilder\binarytree.cpp
+	"BinaryTree.h"
+
+1411004380 c:\users\michael\documents\binarytreebuilder\binarytree.h
+	<iostream>
+	<cassert>
+
+1411002754 source:c:\users\michael\documents\binarytreebuilder\main.cpp
+	<iostream>
+	"BinaryTree.h"
+
