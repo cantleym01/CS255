@@ -28,8 +28,11 @@ void BinaryTree::insertChar(char input)
 void BinaryTree::printTree()
 {
     cout << "\nOutput in the in-order form is: "; inOrder(groot);
+        cout << "\n";
     cout << "\nOutput in the pre-order form is: "; preOrder(groot);
+        cout << "\n";
     cout << "\nOutput in the post-order form is: "; postOrder(groot);
+        cout << "\n";
 } //print the entire tree
 
 void BinaryTree::inOrder(node* nodeBeingTraversed)
