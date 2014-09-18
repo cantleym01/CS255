@@ -27,8 +27,9 @@ void BinaryTree::insertChar(char input)
 
 void BinaryTree::printTree()
 {
-    cout << "\nOutput in the in-order form is: ";
-    inOrder(groot);
+    cout << "\nOutput in the in-order form is: "; inOrder(groot);
+    cout << "\nOutput in the pre-order form is: "; preOrder(groot);
+    cout << "\nOutput in the post-order form is: "; postOrder(groot);
 } //print the entire tree
 
 void BinaryTree::inOrder(node* nodeBeingTraversed)
@@ -86,3 +87,41 @@ void BinaryTree::insertion(char input, node* currentNode)
         return;
     }
 } //insert using recursion
+
+void BinaryTree::preOrder (node* nodeBeingTraversed)
+{
+    assert(nodeBeingTraversed != NULL); //make sure there is not an error
+
+    cout << nodeBeingTraversed->content << " "; //output the content
+
+    //if the left is available, go that way
+    if (nodeBeingTraversed->left != NULL)
+    {
+        preOrder(nodeBeingTraversed->left);
+    }
+
+    //if right is available, go that way
+    if (nodeBeingTraversed->right != NULL)
+    {
+        preOrder(nodeBeingTraversed->right);
+    }
+} //traverses the tree in preorder
+
+void BinaryTree::postOrder (node* nodeBeingTraversed)
+{
+    assert(nodeBeingTraversed != NULL); //make sure there is not an error
+
+    //if the left is available, go that way
+    if (nodeBeingTraversed->left != NULL)
+    {
+        postOrder(nodeBeingTraversed->left);
+    }
+
+    //if right is available, go that way
+    if (nodeBeingTraversed->right != NULL)
+    {
+        postOrder(nodeBeingTraversed->right);
+    }
+
+    cout << nodeBeingTraversed->content << " "; //output the content
+} //traverses the tree in postorder

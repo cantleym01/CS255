@@ -21,7 +21,9 @@ protected:
     }; //nodes for the tree
 
     //a little extra abstraction
-    void inOrder(node* nodeBeingTraversed); //traverses the tree
+    void inOrder(node* nodeBeingTraversed); //traverses the tree inorder
+    void preOrder (node* nodeBeingTraversed); //traverses the tree in preorder
+    void postOrder (node* nodeBeingTraversed); //traverses the tree in postorder
     void insertion(char input, node* currentNode); //insert using recursion
 private:
     node* groot; //the root pointer
