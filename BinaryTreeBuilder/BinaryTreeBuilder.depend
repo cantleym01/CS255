@@ -10,14 +10,15 @@
 	<iostream>
 	"BinaryTree.h"
 
-1411002754 source:c:\users\michael\documents\github\cs255\binarytreebuilder\main.cpp
+1412184247 source:c:\users\michael\documents\github\cs255\binarytreebuilder\main.cpp
 	<iostream>
 	"BinaryTree.h"
 
-1411052217 c:\users\michael\documents\github\cs255\binarytreebuilder\binarytree.h
+1412174692 c:\users\michael\documents\github\cs255\binarytreebuilder\binarytree.h
 	<iostream>
 	<cassert>
+	<algorithm>
 
-1411052417 source:c:\users\michael\documents\github\cs255\binarytreebuilder\binarytree.cpp
+1412179286 source:c:\users\michael\documents\github\cs255\binarytreebuilder\binarytree.cpp
 	"BinaryTree.h"
 

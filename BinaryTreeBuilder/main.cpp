@@ -6,39 +6,19 @@ using namespace std;
 int main()
 {
     BinaryTree tree;
+cout << "Inserting 'q', 'w', 'e', 'r', 't', 'y', 'u'" << endl;
+    tree.insertChar('q');
+    tree.insertChar('w');
+    tree.insertChar('e');
+    tree.insertChar('r');
+    tree.insertChar('t');
+    tree.insertChar('y');
+    tree.insertChar('u');
+    tree.insertChar('a');
+        tree.printTree();
 
-    //keep going until user wants to stop
-    while (true)
-    {
-        char input = 0;
-        string inputPrompt = "\nEnter a lower-case character to add a new element to the binary tree or \nenter 'Q' to quit and print the binary tree (the first input will be the root).\n" ;
-
-        while (true) //keep getting input if input is bad.
-        {
-            //prompt user for input
-            cout << inputPrompt;
-
-            cin >> input; //get input
-
-            //quit if user has specified it
-            if (input == 'Q')
-            {
-                tree.printTree();
-                return 0;
-            }
-            //if input is in selected bounds, break
-            if (cin && input <= 'z' && input >= 'a')
-            {
-                tree.insertChar(input);
-                break;
-            }
-            else
-            {
-                inputPrompt = "\nEnter a lower-case character please!\n";
-                cin.clear();
-                cin.ignore (200, '\n');
-                continue;
-            }
-        }
-    }
+cout << "Deleting 'w' and 'u'" << endl;
+    tree.deleteChar('w');
+    tree.deleteChar('u');
+        tree.printTree();
 }
