@@ -16,7 +16,11 @@ public:
     ~Sorter(){} //destructor
 
     //sort algorithms
-    void BubbleSort(vector<int>& Array); //sort a vector with bubble sort and return it
+    void BubbleSort(vector<int>& Array); //sort a vector with bubble sort
+    void InsertionSort(vector<int>& Array); //sort a vector with insertion sort
+    void SelectionSort(vector<int>& Array); //sort a vector with selection sort
+    void QuickSort(vector<int>& Array, int lowVal, int hiVal); //sort a vector with quick sort
+    void MergeSort(vector<int>& Array); //sort a vector with merge sort
 
     //some utility
     void printArray(vector<int> Array); //print a vector into the command prompt

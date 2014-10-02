@@ -1,13 +1,13 @@
 # depslib dependency file v1.0
-1412216010 source:c:\users\michael\documents\github\cs255\sorting\main.cpp
+1412280349 source:c:\users\michael\documents\github\cs255\sorting\main.cpp
 	<iostream>
 	<vector>
 	"Sorter.h"
 
-1412215954 c:\users\michael\documents\github\cs255\sorting\sorter.h
+1412266935 c:\users\michael\documents\github\cs255\sorting\sorter.h
 	<iostream>
 	<vector>
 
-1412215954 source:c:\users\michael\documents\github\cs255\sorting\sorter.cpp
+1412280342 source:c:\users\michael\documents\github\cs255\sorting\sorter.cpp
 	"Sorter.h"
 

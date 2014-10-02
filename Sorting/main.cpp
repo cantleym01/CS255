@@ -10,19 +10,19 @@ int main()
 
     vector<int> tester; //create the test array
 
-    int choice = 0; //what sort do we run?
+    int choice = 4; //what sort do we run?
 
     //add data to the test array
-    tester.push_back(5);
-    tester.push_back(4);
-    tester.push_back(10);
-    tester.push_back(32);
-    tester.push_back(1);
-    tester.push_back(27);
-    tester.push_back(69); //hue hue
-    tester.push_back(42);
     tester.push_back(50);
-    tester.push_back(1);
+    tester.push_back(40);
+    tester.push_back(100);
+    tester.push_back(320);
+    tester.push_back(10);
+    tester.push_back(270);
+    tester.push_back(690); //hue hue
+    tester.push_back(420);
+    tester.push_back(500);
+    tester.push_back(10);
 
     //sorts
     switch(choice)
@@ -32,23 +32,23 @@ int main()
                 sorter.printArray(tester);
             break;
         case 1:
-            //insertion sort
+            sorter.InsertionSort(tester);
                 sorter.printArray(tester);
             break;
         case 2:
-            //selection sort
+            sorter.SelectionSort(tester);
                 sorter.printArray(tester);
             break;
         case 3:
-            //quick sort
+            sorter.QuickSort(tester, 0, tester.size() - 1);
                 sorter.printArray(tester);
             break;
         case 4:
-            //shell sort
+            sorter.MergeSort(tester);
                 sorter.printArray(tester);
             break;
         case 5:
-            //merge sort
+            //shell sort
                 sorter.printArray(tester);
             break;
         case 6:
