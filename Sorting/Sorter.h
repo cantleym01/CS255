@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include "Heap.h"
 
 using namespace std;
 
@@ -21,6 +22,7 @@ public:
     void SelectionSort(vector<int>& Array); //sort a vector with selection sort
     void QuickSort(vector<int>& Array, int lowVal, int hiVal); //sort a vector with quick sort
     void MergeSort(vector<int>& Array); //sort a vector with merge sort
+    void HeapSort(vector<int>& Array); //sort a vector with heap sort
 
     //some utility
     void printArray(vector<int> Array); //print a vector into the command prompt

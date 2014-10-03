@@ -239,6 +239,26 @@ void Sorter::MergeSort(vector<int>& Array)
     }
 } //sort a vector with merge sort
 
+void Sorter::HeapSort(vector<int>& Array)
+{
+    Heap heap; //create heap obj
+    int Size = Array.size(); //the same size at beginning and end
+
+    //copy Array contents into heap
+    for (int i = 0; i < Size; i++)
+    {
+        heap.insertEle(Array.at(i));
+    }
+
+    Array.clear(); //clear array
+
+    //copy heap onto array, which is not sorted
+    for (int i = 0; i < Size; i++)
+    {
+        Array.push_back(heap.removeMin());
+    }
+} //sort a vector with heap sort
+
 void Sorter::printArray(vector<int> Array)
 {
     if (Array.size() > 0)
