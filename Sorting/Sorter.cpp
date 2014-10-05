@@ -114,44 +114,46 @@ void Sorter::QuickSort(vector<int>& Array, int lowVal, int hiVal)
         int temp; //use to swap
 
         //reference these to not change initial values
-        int i = lowVal, j = hiVal;
+        int top = lowVal, bottom = hiVal;
 
         //while they have not met or passed each other
-        while (i <= j)
+        while (top <= bottom)
         {
-            //try to see if it is sorted & meet at the middle
-            while(Array.at(i) < midEle)
+            //find element that needs to be swapped on the upper-end of the array
+            while(Array.at(top) < midEle)
             {
-                i++;
+                top++;
             }
 
-            //ditto
-            while(Array.at(j) > midEle)
+            //ditto, but for bottom
+            while(Array.at(bottom) > midEle)
             {
-                j--;
+                bottom--;
             }
 
-            //if they are to be swapped, swap them
-            if (i <= j)
+            //if they are suppose to be switched
+            if (top <= bottom)
             {
                 //swap data
-                temp = Array.at(i);
-                Array.at(i) = Array.at(j);
-                Array.at(j) = temp;
-                i++;
-                j--;
+                temp = Array.at(top);
+                Array.at(top) = Array.at(bottom);
+                Array.at(bottom) = temp;
+                top++;
+                bottom--;
             }
         }
 
         //do recursive stuff
-        if (lowVal < j)
+        if (lowVal < bottom)
         {
-            QuickSort(Array, lowVal, j);
+            QuickSort(Array, lowVal, bottom);
         }
-        if (i < hiVal)
+        if (top < hiVal)
         {
-            QuickSort(Array, i, hiVal);
+            QuickSort(Array, top, hiVal);
         }
+
+        //if this part is reach, we are done! (in recursion it will do sub-arrays, but same idea
     }
 } //sort a vector with quick sort
 

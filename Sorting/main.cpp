@@ -10,7 +10,7 @@ int main()
 
     vector<int> tester; //create the test array
 
-    int choice = 0; //what sort do we run?
+    int choice = 3; //what sort do we run?
 
     //add data to the test array
     tester.push_back(50);
