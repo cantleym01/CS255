@@ -32,6 +32,10 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Heap.cpp" />
+		<Unit filename="Heap.h" />
+		<Unit filename="Sorter.cpp" />
+		<Unit filename="Sorter.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />

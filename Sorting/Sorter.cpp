@@ -18,7 +18,7 @@ void Sorter::BubbleSort(vector<int>& Array)
                     Array.at(i) = Array.at(i + 1);
                     Array.at(i + 1) = temp;
 
-                    Done = false; //we're don done
+                    Done = false; //we're done
                 }
             }
             if (Done) //if exit is not changed to false in the for loop it is sorted so it is done.

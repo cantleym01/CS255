@@ -65,13 +65,10 @@ void Heap::goUpHeap(int index)
     }
 } //go from the bottom part and keep swapping to keep heap integrity
 
+//this one is ugly! Don't look at it!
 void Heap::swapWMin(int index)
 {
-    /**
-    for some reason it works with [] but not .at() ?
-    */
-
-    int child; //reference child for switch
+    int child; //reference to child for switch
     int temp = heap[index]; //temp for fast switch
 
     while(getLeftChild(index) <= Size) //while the left child is not out of range (right will be too if left is)
@@ -84,15 +81,15 @@ void Heap::swapWMin(int index)
         }
         if(heap[child] < temp) //swap data if the child is < the temp element
         {
+            temp = heap[index];
             heap[index] = heap[child];
+            heap[child] = temp;
+
+            index = child;
         }
-        else //we are done because parent is < the lesser child
+        else //we are done because neither child is < the parent
         {
             break;
         }
-
-        index = child;
     }
-
-    heap[index] = temp; //don't forget final switch
 } //swap the element at index with the child at the least value postion until end is hit
