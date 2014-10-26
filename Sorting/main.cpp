@@ -35,7 +35,7 @@ int main()
         cin >> choice; //get input
 
         //if input is in selected bounds, break
-        if (choice <= 5 && choice >= 0)
+        if (cin && choice <= 5 && choice >= 0)
         {
             break;
         }

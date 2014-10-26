@@ -1,0 +1,21 @@
+# depslib dependency file v1.0
+1414354123 source:c:\users\michael\documents\github\cs255\spell checker\spellchecker\main.cpp
+	<iostream>
+	"SpellChecker.h"
+
+1414285716 source:c:\users\michael\documents\github\cs255\spell checker\spellchecker\trie.cpp
+	"Trie.h"
+
+1414285716 c:\users\michael\documents\github\cs255\spell checker\spellchecker\trie.h
+	<iostream>
+	<vector>
+
+1414358802 c:\users\michael\documents\github\cs255\spell checker\spellchecker\spellchecker.h
+	<iostream>
+	<vector>
+	<fstream>
+	<assert.h>
+
+1414356310 source:c:\users\michael\documents\github\cs255\spell checker\spellchecker\spellchecker.cpp
+	"SpellChecker.h"
+
