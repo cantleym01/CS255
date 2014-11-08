@@ -9,7 +9,7 @@ SpellChecker::SpellChecker() {
     //initialize all of the children pointers to NULL
     for (int i = 0; i < alphabetSize; i++)
     {
-        groot -> children.push_back(NULL);
+        groot -> children[i] = NULL;
     }
 
     numOfWords = 0;
@@ -49,19 +49,21 @@ void SpellChecker::insertWord(string word) {
             temp = child;
         }
         else { //start appending
-            node* parent = temp;
-            child = new node;
-            parent -> children[temp -> getChild(word.substr(i, 1))] = child;
+            node* parent = temp; //create parent node
+            child = new node; //child is now a node
+            parent -> children[temp -> getChild(word.substr(i, 1))] = child; //parent repoints (don't understand this)
+
+            //assign contents
             child -> str = word.substr(i, 1);
             child -> parent = parent;
 
             //initialize all of the children pointers to NULL
             for (int i = 0; i < alphabetSize; i++)
             {
-                child -> children.push_back(NULL);
+                child -> children[i] = NULL;
             }
 
-            temp = child;
+            temp = child; //new temp
         }
     }
 

@@ -18,7 +18,7 @@ protected:
         string str; //the string held by the node
         string word; //if node is end of word, it will contain the word
         bool endOfWord; //is this node the end of a word?
-        vector<node*> children; //list of the node's children pointers
+        node* children[alphabetSize]; //list of the node's children pointers
         node* parent; //pointer to the parent node
 
         int getChild(string comparison) {

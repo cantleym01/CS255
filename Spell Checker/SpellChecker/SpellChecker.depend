@@ -10,13 +10,13 @@
 	<iostream>
 	<vector>
 
-1414566487 c:\users\michael\documents\github\cs255\spell checker\spellchecker\spellchecker.h
+1414606047 c:\users\michael\documents\github\cs255\spell checker\spellchecker\spellchecker.h
 	<iostream>
 	<vector>
 	<fstream>
 	<ctype.h>
 	<assert.h>
 
-1414566317 source:c:\users\michael\documents\github\cs255\spell checker\spellchecker\spellchecker.cpp
+1414607774 source:c:\users\michael\documents\github\cs255\spell checker\spellchecker\spellchecker.cpp
 	"SpellChecker.h"
 
