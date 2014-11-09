@@ -32,6 +32,12 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="AdjacencyList.cpp" />
+		<Unit filename="AdjacencyList.h" />
+		<Unit filename="AdjacencyMatrix.cpp" />
+		<Unit filename="AdjacencyMatrix.h" />
+		<Unit filename="GraphNode.cpp" />
+		<Unit filename="GraphNode.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />

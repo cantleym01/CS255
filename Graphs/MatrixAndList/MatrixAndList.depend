@@ -1,14 +1,27 @@
 # depslib dependency file v1.0
-1415481977 source:c:\users\michael\documents\github\cs255\graphs\matrixandlist\main.cpp
+1415560800 source:c:\users\michael\documents\github\cs255\graphs\matrixandlist\main.cpp
 	<iostream>
+	"AdjacencyMatrix.h"
 
 1415482169 source:c:\users\michael\documents\github\cs255\graphs\matrixandlist\adjacencylist.cpp
 
-1415482300 source:c:\users\michael\documents\github\cs255\graphs\matrixandlist\graphnode.cpp
+1415486633 source:c:\users\michael\documents\github\cs255\graphs\matrixandlist\graphnode.cpp
 	"GraphNode.h"
 
-1415486173 c:\users\michael\documents\github\cs255\graphs\matrixandlist\graphnode.h
+1415511458 c:\users\michael\documents\github\cs255\graphs\matrixandlist\graphnode.h
 	<iostream>
 	<assert.h>
 	<vector>
+
+1415561967 source:c:\users\michael\documents\github\cs255\graphs\matrixandlist\adjacencymatrix.cpp
+	"AdjacencyMatrix.h"
+
+1415560567 c:\users\michael\documents\github\cs255\graphs\matrixandlist\adjacencymatrix.h
+	<iostream>
+	<assert.h>
+	<vector>
+	<fstream>
+	<sstream>
+	<stdlib.h>
+	"GraphNode.h"
 

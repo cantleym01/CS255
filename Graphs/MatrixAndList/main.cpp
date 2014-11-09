@@ -1,9 +1,12 @@
 #include <iostream>
+#include "AdjacencyMatrix.h"
 
 using namespace std;
 
 int main()
 {
-    cout << "Hello world!" << endl;
+    AdjecencyMatrix matrix;
+    matrix.fileRead("graph.txt");
+    matrix.printMatrix();
     return 0;
 }

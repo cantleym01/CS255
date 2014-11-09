@@ -4,7 +4,7 @@
 /**
     This is the generic graph node for the adjacency list and matrix.
     Not all functionality will be used in both, as some are useful in
-    the adjacency list, and not adjacency matrix.
+    the adjacency list, and not adjacency matrix, and vice-versa.
 */
 
 #include <iostream> //input & output
@@ -20,7 +20,10 @@ public:
 
     string value; //generic value in the graph node
     bool isVisited; //bool to tell if it has been visited in traversals
-    vector<GraphNode*> adjacentNodes; //list of pointers to all adjecent nodes
+
+    //Two adjecent node vectors so that we can easily make this a directed graph (used for list, not matrix)
+    vector<GraphNode*> adjacentIn; //list of pointers to all adjecent nodes
+    vector<GraphNode*> adjacentOut; //list of pointers to all adjecent nodes
 };
 
 #endif
