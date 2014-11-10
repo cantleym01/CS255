@@ -31,7 +31,6 @@ void AdjecencyMatrix::fileRead(string fileName) {
         now that we have the data, we need to insert it into the matrix & reference
         */
 
-
         //add all new vertices, it will do nothing if the vertex already exists
         for (int i = 0; i < data.size(); i++) {
             GraphNode node;
@@ -99,6 +98,8 @@ void AdjecencyMatrix::insertEdge(GraphNode node1, GraphNode node2) {
 
     //it goes this way, as the graph may be dirsected, so we cannot do both ways
     Matrix[headIndex][connectionIndex] = 1; //can change this to a variable to show edge weights
+
+    edges++;
 } //insert an edge between 2 verticies
 
 void AdjecencyMatrix::removeEdge(GraphNode node1, GraphNode node2) {

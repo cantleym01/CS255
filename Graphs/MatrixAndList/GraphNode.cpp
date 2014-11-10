@@ -2,15 +2,12 @@
 
 GraphNode::GraphNode() {
     isVisited = false;
+    adjacent.push_back(NULL);
 }
 
 GraphNode::~GraphNode() {
-
     //clean up pointers
-    for (int i = 0; i < adjacentIn.size(); i++) {
-        delete adjacentIn[i];
-    }
-    for (int i = 0; i < adjacentOut.size(); i++) {
-        delete adjacentOut[i];
+    for (int i = 0; i < adjacent.size(); i++) {
+        delete adjacent[i];
     }
 }

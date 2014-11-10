@@ -1,12 +1,13 @@
 #include <iostream>
 #include "AdjacencyMatrix.h"
+#include "AdjacencyList.h"
 
 using namespace std;
 
 int main()
 {
-    AdjecencyMatrix matrix;
+    AdjecencyList matrix;
     matrix.fileRead("graph.txt");
-    matrix.printMatrix();
+    matrix.printList();
     return 0;
 }
