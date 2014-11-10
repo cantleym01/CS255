@@ -33,14 +33,18 @@ void AdjecencyList::fileRead(string fileName) {
 
         //add all new vertices, it will do nothing if the vertex already exists
         for (int i = 0; i < data.size(); i++) {
-            if (Groot.adjacent.size() == 2)
-            cout << Groot.adjacent[0] -> value << endl;
             GraphNode node;
             node.value = data.at(i);
-
+    if (Groot.adjacent.size() == 2)
+    cout << Groot.adjacent[0] -> value;
             insertVertex(node);
         }
-        cout << Groot.adjacent.size() << endl;
+
+        for (int i = 0; i < Groot.adjacent.size(); i++) {
+            cout << Groot.adjacent[i] -> value << endl;
+        }
+
+        //cout << Groot.adjacent.size() << endl;
         for (int i = 0; i < Groot.adjacent.size() - 1; i++) {
             cout << Groot.adjacent[i] -> value << endl;
         }
@@ -61,6 +65,8 @@ void AdjecencyList::fileRead(string fileName) {
 } //read a graph from a file, and assemble it into a list
 
 void AdjecencyList::insertVertex(GraphNode node) {
+if (Groot.adjacent.size() == 2)
+cout << Groot.adjacent[0] -> value << endl;
     for (int i = 0; i < Groot.adjacent.size(); i++) {
         if (Groot.adjacent[i] == NULL) {
             //vertices++;
