@@ -2,7 +2,6 @@
 
 GraphNode::GraphNode() {
     isVisited = false;
-    adjacent.push_back(NULL);
 }
 
 GraphNode::~GraphNode() {

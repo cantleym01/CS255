@@ -20,6 +20,7 @@ public:
 
     string value; //generic value in the graph node
     bool isVisited; //bool to tell if it has been visited in traversals
+    int inWeight, outWeight; //For a weighted graph
 
     vector<GraphNode*> adjacent; //list of pointers to all adjecent nodes with outward edges
             //i.e. A B C means A points to both B and C, but doesn't mean C or B points to A

@@ -32,6 +32,12 @@ using namespace std; //no std::
 
 */
 
+/**
+NOTE: LIST DOES NOT WORK ATM, IT HAS SOME WIERD THING HAPPENING WHERE IT CHANGES
+THE VALUE OF WHAT THE ROOT NODE HAS POINTERS TO WITHOUT EVER COMING ACROSS CODE
+THAT COULD POSSIBLE CHANGE IT.
+*/
+
 class AdjecencyList {
 public:
     AdjecencyList();
@@ -39,9 +45,7 @@ public:
 
     void fileRead(string fileName); //read a graph from a file, and assemble it into a list
     void insertVertex(GraphNode node); //insert a vertex into the list
-    void removeVertex(GraphNode node); //remove a vertex from the list
     void insertEdge(GraphNode node1, GraphNode node2); //insert an edge between 2 verticies
-    void removeEdge(GraphNode node1, GraphNode node2); //remove and edge between 2 verticies
     bool adjQueuery(GraphNode node1, GraphNode node2); //check if 2 vertices are adjacent
     void printList(); //print the list
 
@@ -50,8 +54,9 @@ private:
     int edges;
 
     GraphNode Groot; //head node that has no value, but points to all vertices
+    vector<GraphNode> Reference;
 
-    GraphNode* getPointer(GraphNode node); //return the pointer to the node passed in
+    GraphNode* getPointer(GraphNode parentNode, GraphNode nodeToFind); //return the pointer to the node passed in
 };
 
 #endif

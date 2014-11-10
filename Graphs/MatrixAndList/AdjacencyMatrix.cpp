@@ -184,15 +184,6 @@ void AdjecencyMatrix::DFTRec(GraphNode node) {
 } //Depth First Traversal
 
 void AdjecencyMatrix::BFTRec(GraphNode node) {
-    /**
-    visit (start node)
-        Queue <- start node
-        while queue is not empty
-            x <- queue head
-            for each y s.t. (x,y) is an edge & y has not been visited
-                visit(y)
-                Queue <- y
-    */
     cout << node.value << " ";
     Reference[getIndex(node)].isVisited = true;
     BFTQueue.push(node);

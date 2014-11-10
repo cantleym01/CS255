@@ -35,13 +35,13 @@ void AdjecencyList::fileRead(string fileName) {
         for (int i = 0; i < data.size(); i++) {
             GraphNode node;
             node.value = data.at(i);
-    if (Groot.adjacent.size() == 2)
-    cout << Groot.adjacent[0] -> value;
             insertVertex(node);
+            cout << Groot.adjacent[0] -> value << endl;
         }
 
         //also insert the first node's connections (edges)
         for (int i = 1; i < data.size(); i++) {
+
             //loop will not even be entered if there is only 1 vertex input, (a point)
             GraphNode headNode;
             headNode.value = data.at(0);
@@ -56,76 +56,60 @@ void AdjecencyList::fileRead(string fileName) {
 } //read a graph from a file, and assemble it into a list
 
 void AdjecencyList::insertVertex(GraphNode node) {
-if (Groot.adjacent.size() == 2)
-cout << Groot.adjacent[0] -> value << endl;
-    for (int i = 0; i < Groot.adjacent.size(); i++) {
-        if (Groot.adjacent[i] == NULL) {
-            //vertices++;
-            GraphNode* temp = &node;
-            Groot.adjacent[i] = temp;
-            Groot.adjacent.push_back(NULL);
-            return;
-        }
-        else if (Groot.adjacent[i] -> value == node.value) {
-            return; //vertex already exists, so exit
-        }
+    //if returns null, that means the node does not exist yet
+    if (getPointer(Groot, node) == NULL) {
+            cout << node.value << endl;
+        vertices++;
+        GraphNode* temp = &node;
+        Groot.adjacent.push_back(temp);
+        return;
     }
-
-    /**
-        If this spot was hit, it will throw the assertion below.
-
-        This spot means that NULL was not at the end of Groot's vector
-        of pointers.
-    */
-
-    assert("This spot shouldn't be hit" == "But it was.");
 } //insert a vertex into the list
 
 void AdjecencyList::insertEdge(GraphNode node1, GraphNode node2) {
-    GraphNode* nodeptr1 = getPointer(node1);
-    GraphNode* nodeptr2 = getPointer(node2);
+    GraphNode* nodeptr1 = getPointer(Groot, node1);
+    GraphNode* nodeptr2 = getPointer(Groot, node2);
 
     //make sure both vertices exist
     assert (nodeptr1 != NULL);
     assert (nodeptr2 != NULL);
 
-    for (int i = 0; i < nodeptr1 -> adjacent.size(); i++) {
-        GraphNode* temp = nodeptr1 -> adjacent[i];
-        if (temp == NULL) {
-            edges++;
-            temp = nodeptr2;
-            nodeptr1 -> adjacent[i] = temp;
-            nodeptr1 -> adjacent.push_back(NULL);
-            return;
-        }
-        else if (temp -> value == nodeptr2 -> value) {
-            return; //edge already exists, so exit
-        }
+    if (getPointer(node1, node2) == NULL) {
+        edges++;
+        nodeptr1 -> adjacent.push_back(nodeptr2);
+        return;
     }
-
-    /**
-        If this spot was hit, it will throw the assertion below.
-
-        This spot means that NULL was not at the end of Groot's vector
-        of pointers.
-    */
-    assert("This spot shouldn't be hit" == "But it was.");
 
 }//insert an edge between 2 verticies
 
 bool AdjecencyList::adjQueuery(GraphNode node1, GraphNode node2) {
+    if (getPointer(node1, node2) != NULL) {
+        return true;
+    }
+    else {
+        return false;
+    }
 
     return false;
 } //check if 2 vertices are adjacent
 
 void AdjecencyList::printList() {
-    cout << "build was good" << endl;
+    for (int i = 0; i < Groot.adjacent.size(); i++) {
+        GraphNode temp = *Groot.adjacent[i];
+        cout << temp.value << " -> ";
+        for (int j = 0; j < temp.adjacent.size(); j++) {
+            GraphNode temp2 = *temp.adjacent[j];
+            cout << temp2.value << " ";
+        }
+        cout << endl;
+    }
 } //print the list
 
-GraphNode* AdjecencyList::getPointer(GraphNode node) {
-    for (int i = 0; i < Groot.adjacent.size(); i++) {
-        GraphNode* temp = Groot.adjacent[i];
-        if (temp -> value == node.value) {
+GraphNode* AdjecencyList::getPointer(GraphNode parentNode, GraphNode nodeToFind) {
+    for (int i = 0; i < parentNode.adjacent.size(); i++) {
+        GraphNode* temp = parentNode.adjacent[i];
+
+        if (temp -> value == nodeToFind.value) {
             return temp; //vertex found, return pointer to it
         }
     }
