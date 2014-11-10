@@ -7,6 +7,7 @@
 #include <fstream> //file handling
 #include <sstream> //stringstream
 #include <stdlib.h> //atoi
+#include <queue>
 #include "GraphNode.h"
 
 using namespace std; //no std::
@@ -39,11 +40,11 @@ public:
 
     void fileRead(string fileName); //read a graph from a file, and assemble it into a matrix
     void insertVertex(GraphNode node); //insert a vertex into the matrix
-    void removeVertex(GraphNode node); //remove a vertex from the matrix
     void insertEdge(GraphNode node1, GraphNode node2); //insert an edge between 2 verticies
-    void removeEdge(GraphNode node1, GraphNode node2); //remove and edge between 2 verticies
     bool adjQueuery(GraphNode node1, GraphNode node2); //check if 2 vertices are adjacent
     void printMatrix(); //print the matrix
+    void DFT(); //Depth First Traversal
+    void BFT(); //Breadth First Traversal
 
 private:
     int vertices; //how ever many vertices there are, the size of the matrix is vertices^2
@@ -54,6 +55,9 @@ private:
     vector<GraphNode> Reference;
 
     int getIndex(GraphNode node); //get the index # of the graph node given
+    void DFTRec(GraphNode node); //Depth First Traversal
+    void BFTRec(GraphNode node); //Breadth First Traversal
+    queue<GraphNode> BFTQueue;
 };
 
 #endif

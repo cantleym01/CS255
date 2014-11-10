@@ -6,8 +6,10 @@ using namespace std;
 
 int main()
 {
-    AdjecencyList matrix;
+    AdjecencyMatrix matrix;
     matrix.fileRead("graph.txt");
-    matrix.printList();
+    matrix.printMatrix();
+    matrix.DFT();
+    matrix.BFT();
     return 0;
 }

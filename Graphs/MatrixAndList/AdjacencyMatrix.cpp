@@ -84,10 +84,6 @@ void AdjecencyMatrix::insertVertex(GraphNode node) {
 
 } //insert a vertex into the matrix
 
-void AdjecencyMatrix::removeVertex(GraphNode node) {
-
-}//remove a vertex from the matrix
-
 void AdjecencyMatrix::insertEdge(GraphNode node1, GraphNode node2) {
     int headIndex = getIndex(node1);
     int connectionIndex = getIndex(node2);
@@ -101,10 +97,6 @@ void AdjecencyMatrix::insertEdge(GraphNode node1, GraphNode node2) {
 
     edges++;
 } //insert an edge between 2 verticies
-
-void AdjecencyMatrix::removeEdge(GraphNode node1, GraphNode node2) {
-
-} //remove and edge between 2 verticies
 
 bool AdjecencyMatrix::adjQueuery(GraphNode node1, GraphNode node2) {
     int index1 = getIndex(node1);
@@ -139,3 +131,84 @@ void AdjecencyMatrix::printMatrix() {
         cout << endl;
     }
 } //print the matrix
+
+void AdjecencyMatrix::DFT() {
+    /**
+    visit (x)
+    for each y s.t. (x,y) is an edge, do:
+        If y was not visited yet, then
+            DFT(y)
+    */
+    cout << "DFT: ";
+    DFTRec(Reference[0]);
+    cout << endl;
+
+    //put all of the visited bools back to false
+    for (int i = 0; i < vertices; i++) {
+        Reference[i].isVisited = false;
+    }
+} //Depth First Traversal
+
+void AdjecencyMatrix::BFT() {
+    /**
+    visit (start node)
+        Queue <- start node
+        while queue is not empty
+            x <- queue head
+            for each y s.t. (x,y) is an edge & y has not been visited
+                visit(y)
+                Queue <- y
+    */
+    cout << "BFT: ";
+    BFTRec(Reference[0]);
+    cout << endl;
+
+    //put all of the visited bools back to false
+    for (int i = 0; i < vertices; i++) {
+        Reference[i].isVisited = false;
+    }
+} //Breadth First Traversal
+
+void AdjecencyMatrix::DFTRec(GraphNode node) {
+    cout << node.value << " ";
+    int nodeIndex = getIndex(node);
+    Reference[nodeIndex].isVisited = true;
+    for (int i = 0; i < vertices; i++) {
+        if (Matrix[nodeIndex][i] != 0) {
+            if (!Reference[i].isVisited) {
+                DFTRec(Reference[i]);
+            }
+        }
+    }
+
+} //Depth First Traversal
+
+void AdjecencyMatrix::BFTRec(GraphNode node) {
+    /**
+    visit (start node)
+        Queue <- start node
+        while queue is not empty
+            x <- queue head
+            for each y s.t. (x,y) is an edge & y has not been visited
+                visit(y)
+                Queue <- y
+    */
+    cout << node.value << " ";
+    Reference[getIndex(node)].isVisited = true;
+    BFTQueue.push(node);
+    while (BFTQueue.size() > 0) {
+        GraphNode temp = BFTQueue.front();
+        BFTQueue.pop();
+        int nodeIndex = getIndex(temp);
+
+        for (int i = 0; i < vertices; i++) {
+            if (Matrix[nodeIndex][i] != 0) {
+                if (!Reference[i].isVisited) {
+                    cout << Reference[i].value << " ";
+                    Reference[i].isVisited = true;
+                    BFTQueue.push(Reference[i]);
+                }
+            }
+        }
+    }
+} //Breadth First Traversal

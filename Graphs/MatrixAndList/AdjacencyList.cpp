@@ -40,15 +40,6 @@ void AdjecencyList::fileRead(string fileName) {
             insertVertex(node);
         }
 
-        for (int i = 0; i < Groot.adjacent.size(); i++) {
-            cout << Groot.adjacent[i] -> value << endl;
-        }
-
-        //cout << Groot.adjacent.size() << endl;
-        for (int i = 0; i < Groot.adjacent.size() - 1; i++) {
-            cout << Groot.adjacent[i] -> value << endl;
-        }
-
         //also insert the first node's connections (edges)
         for (int i = 1; i < data.size(); i++) {
             //loop will not even be entered if there is only 1 vertex input, (a point)
@@ -90,10 +81,6 @@ cout << Groot.adjacent[0] -> value << endl;
     assert("This spot shouldn't be hit" == "But it was.");
 } //insert a vertex into the list
 
-void AdjecencyList::removeVertex(GraphNode node) {
-
-} //remove a vertex from the list
-
 void AdjecencyList::insertEdge(GraphNode node1, GraphNode node2) {
     GraphNode* nodeptr1 = getPointer(node1);
     GraphNode* nodeptr2 = getPointer(node2);
@@ -125,10 +112,6 @@ void AdjecencyList::insertEdge(GraphNode node1, GraphNode node2) {
     assert("This spot shouldn't be hit" == "But it was.");
 
 }//insert an edge between 2 verticies
-
-void AdjecencyList::removeEdge(GraphNode node1, GraphNode node2) {
-
-} //remove and edge between 2 verticies
 
 bool AdjecencyList::adjQueuery(GraphNode node1, GraphNode node2) {
 
