@@ -7,10 +7,19 @@ using namespace std;
 
 int main()
 {
-    AdjecencyMatrix matrix;
-    matrix.fileRead("graph.txt");
-    matrix.printMatrix();
-    matrix.DFT();
-    matrix.BFT();
+    AdjecencyMatrix Matrix;
+    cout << "Adjacency Matrix" << endl;
+    Matrix.fileRead("lantern.txt");
+    Matrix.printMatrix();
+    Matrix.DFT();
+    Matrix.BFT();
+cout << "___________________" << endl;
+cout << endl;
+    AdjecencyList List;
+    cout << "Adjacency List" << endl;
+    List.fileRead("lantern.txt");
+    List.printList();
+    List.DFT();
+    List.BFT();
     return 0;
 }

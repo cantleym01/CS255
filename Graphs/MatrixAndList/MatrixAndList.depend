@@ -1,17 +1,17 @@
 # depslib dependency file v1.0
-1415649339 source:c:\users\michael\documents\github\cs255\graphs\matrixandlist\main.cpp
+1415733911 source:c:\users\michael\documents\github\cs255\graphs\matrixandlist\main.cpp
 	<iostream>
 	"AdjacencyMatrix.h"
 	"AdjacencyList.h"
 	"GraphNode.h"
 
-1415677699 source:c:\users\michael\documents\github\cs255\graphs\matrixandlist\adjacencylist.cpp
+1415733766 source:c:\users\michael\documents\github\cs255\graphs\matrixandlist\adjacencylist.cpp
 	"AdjacencyList.h"
 
-1415643099 source:c:\users\michael\documents\github\cs255\graphs\matrixandlist\graphnode.cpp
+1415719354 source:c:\users\michael\documents\github\cs255\graphs\matrixandlist\graphnode.cpp
 	"GraphNode.h"
 
-1415677000 c:\users\michael\documents\github\cs255\graphs\matrixandlist\graphnode.h
+1415719335 c:\users\michael\documents\github\cs255\graphs\matrixandlist\graphnode.h
 	<iostream>
 	<assert.h>
 	<vector>
@@ -29,12 +29,13 @@
 	<queue>
 	"GraphNode.h"
 
-1415677699 c:\users\michael\documents\github\cs255\graphs\matrixandlist\adjacencylist.h
+1415733076 c:\users\michael\documents\github\cs255\graphs\matrixandlist\adjacencylist.h
 	<iostream>
 	<assert.h>
 	<vector>
 	<fstream>
 	<sstream>
 	<stdlib.h>
+	<queue>
 	"GraphNode.h"
 

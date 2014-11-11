@@ -69,21 +69,28 @@ void AdjecencyList::insertEdge(GraphNode node1, GraphNode node2) {
     assert (index1 != -1);
     assert (index2 != -1);
 
-    GraphNode* headPtr = getPointer(node1, node2);
-
     edges++;
-    GraphNode* add = &Reference[index2];
-    Reference[index1].adjacent.push_back(add);
+    Reference[index1].adjacent.push_back(Reference[index2]);
 }//insert an edge between 2 verticies
 
 bool AdjecencyList::adjQueuery(GraphNode node1, GraphNode node2) {
-    if (getPointer(node1, node2) != NULL) {
-        return true;
-    }
-    else {
-        return false;
-    }
+    int index1 = getIndex(node1);
+    int index2 = getIndex(node2);
 
+    //make sure both vertices exist
+    assert (index1 != -1);
+    assert (index2 != -1);
+
+    for (int i = 0; i < Reference[index1].adjacent.size(); i++) {
+        if (Reference[index1].adjacent[i].value == node2.value) {
+            return true;
+        }
+    }
+    for (int i = 0; i < Reference[index2].adjacent.size(); i++) {
+        if (Reference[index2].adjacent[i].value == node1.value) {
+            return true;
+        }
+    }
     return false;
 } //check if 2 vertices are adjacent
 
@@ -92,7 +99,7 @@ void AdjecencyList::printList() {
         GraphNode temp = Reference[i];
         cout << temp.value << " -> ";
         for (int j = 0; j < temp.adjacent.size(); j++) {
-            GraphNode temp2 = *temp.adjacent[j];
+            GraphNode temp2 = temp.adjacent[j];
             cout << temp2.value << " ";
         }
         cout << endl;
@@ -108,15 +115,71 @@ int AdjecencyList::getIndex(GraphNode node) {
     return -1; //-1 means the vertex does not exist
 } //get the index # of the graph node given
 
-GraphNode* AdjecencyList::getPointer(GraphNode parentNode, GraphNode nodeToFind) {
-    for (int i = 0; i < parentNode.adjacent.size(); i++) {
-        GraphNode* temp = parentNode.adjacent[i];
+void AdjecencyList::DFT() {
+    /**
+    visit (x)
+    for each y s.t. (x,y) is an edge, do:
+        If y was not visited yet, then
+            DFT(y)
+    */
+    cout << "DFT: ";
+    DFTRec(Reference[0]);
+    cout << endl;
 
-        if (temp -> value == nodeToFind.value) {
-            return temp; //vertex found, return pointer to it
+    //put all of the visited bools back to false
+    for (int i = 0; i < vertices; i++) {
+        Reference[i].isVisited = false;
+    }
+} //Depth First Traversal
+
+void AdjecencyList::BFT() {
+    /**
+    visit (start node)
+        Queue <- start node
+        while queue is not empty
+            x <- queue head
+            for each y s.t. (x,y) is an edge & y has not been visited
+                visit(y)
+                Queue <- y
+    */
+    cout << "BFT: ";
+    BFTRec(Reference[0]);
+    cout << endl;
+
+    //put all of the visited bools back to false
+    for (int i = 0; i < vertices; i++) {
+        Reference[i].isVisited = false;
+    }
+} //Breadth First Traversal
+
+void AdjecencyList::DFTRec(GraphNode node) {
+    cout << node.value << " ";
+    int nodeIndex = getIndex(node);
+    Reference[nodeIndex].isVisited = true;
+    for (int i = 0; i < Reference[nodeIndex].adjacent.size(); i++) {
+        int index = getIndex(Reference[nodeIndex].adjacent[i]);
+        if (!Reference[index].isVisited) {
+            DFTRec(Reference[index]);
         }
     }
+} //Depth First Traversal
 
-    GraphNode* nuller = NULL;
-    return nuller; //vertex not found, return NULL
-} //return the pointer to the node passed in
+void AdjecencyList::BFTRec(GraphNode node) {
+    cout << node.value << " ";
+    Reference[getIndex(node)].isVisited = true;
+    BFTQueue.push(node);
+    while (BFTQueue.size() > 0) {
+        GraphNode temp = BFTQueue.front();
+        BFTQueue.pop();
+        int Index = getIndex(temp);
+
+        for (int i = 0; i < vertices; i++) {
+            if (!Reference[i].isVisited) {
+                cout << Reference[i].value << " ";
+                Reference[i].isVisited = true;
+                BFTQueue.push(Reference[i]);
+            }
+        }
+    }
+} //Breadth First Traversal
+
