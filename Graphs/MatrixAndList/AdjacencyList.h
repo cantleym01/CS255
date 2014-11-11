@@ -26,16 +26,10 @@ using namespace std; //no std::
     B - C
 
    list:
-   A - B C
-   B - A C
-   C - A B
+   A -> B C
+   B -> A C
+   C -> A B
 
-*/
-
-/**
-NOTE: LIST DOES NOT WORK ATM, IT HAS SOME WIERD THING HAPPENING WHERE IT CHANGES
-THE VALUE OF WHAT THE ROOT NODE HAS POINTERS TO WITHOUT EVER COMING ACROSS CODE
-THAT COULD POSSIBLE CHANGE IT.
 */
 
 class AdjecencyList {
@@ -53,10 +47,10 @@ private:
     int vertices;
     int edges;
 
-    GraphNode Groot; //head node that has no value, but points to all vertices
     vector<GraphNode> Reference;
 
     GraphNode* getPointer(GraphNode parentNode, GraphNode nodeToFind); //return the pointer to the node passed in
+    int getIndex(GraphNode node); //get the index # of the graph node given
 };
 
 #endif

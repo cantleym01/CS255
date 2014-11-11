@@ -36,7 +36,6 @@ void AdjecencyList::fileRead(string fileName) {
             GraphNode node;
             node.value = data.at(i);
             insertVertex(node);
-            cout << Groot.adjacent[0] -> value << endl;
         }
 
         //also insert the first node's connections (edges)
@@ -48,7 +47,6 @@ void AdjecencyList::fileRead(string fileName) {
 
             GraphNode connectionNode;
             connectionNode.value = data.at(i);
-
             insertEdge(headNode, connectionNode);
         }
     }
@@ -57,29 +55,25 @@ void AdjecencyList::fileRead(string fileName) {
 
 void AdjecencyList::insertVertex(GraphNode node) {
     //if returns null, that means the node does not exist yet
-    if (getPointer(Groot, node) == NULL) {
-            cout << node.value << endl;
+    if (getIndex(node) == -1) {
         vertices++;
-        GraphNode* temp = &node;
-        Groot.adjacent.push_back(temp);
-        return;
+        Reference.push_back(node);
     }
 } //insert a vertex into the list
 
 void AdjecencyList::insertEdge(GraphNode node1, GraphNode node2) {
-    GraphNode* nodeptr1 = getPointer(Groot, node1);
-    GraphNode* nodeptr2 = getPointer(Groot, node2);
+    int index1 = getIndex(node1);
+    int index2 = getIndex(node2);
 
     //make sure both vertices exist
-    assert (nodeptr1 != NULL);
-    assert (nodeptr2 != NULL);
+    assert (index1 != -1);
+    assert (index2 != -1);
 
-    if (getPointer(node1, node2) == NULL) {
-        edges++;
-        nodeptr1 -> adjacent.push_back(nodeptr2);
-        return;
-    }
+    GraphNode* headPtr = getPointer(node1, node2);
 
+    edges++;
+    GraphNode* add = &Reference[index2];
+    Reference[index1].adjacent.push_back(add);
 }//insert an edge between 2 verticies
 
 bool AdjecencyList::adjQueuery(GraphNode node1, GraphNode node2) {
@@ -94,8 +88,8 @@ bool AdjecencyList::adjQueuery(GraphNode node1, GraphNode node2) {
 } //check if 2 vertices are adjacent
 
 void AdjecencyList::printList() {
-    for (int i = 0; i < Groot.adjacent.size(); i++) {
-        GraphNode temp = *Groot.adjacent[i];
+    for (int i = 0; i < Reference.size(); i++) {
+        GraphNode temp = Reference[i];
         cout << temp.value << " -> ";
         for (int j = 0; j < temp.adjacent.size(); j++) {
             GraphNode temp2 = *temp.adjacent[j];
@@ -104,6 +98,15 @@ void AdjecencyList::printList() {
         cout << endl;
     }
 } //print the list
+
+int AdjecencyList::getIndex(GraphNode node) {
+    for (int i = 0; i < Reference.size(); i++) {
+        if (Reference[i].value == node.value) {
+            return i; //return the correct index
+        }
+    }
+    return -1; //-1 means the vertex does not exist
+} //get the index # of the graph node given
 
 GraphNode* AdjecencyList::getPointer(GraphNode parentNode, GraphNode nodeToFind) {
     for (int i = 0; i < parentNode.adjacent.size(); i++) {
