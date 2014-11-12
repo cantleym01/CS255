@@ -23,8 +23,16 @@ void AdjecencyMatrix::fileRead(string fileName) {
         //split contents up into a vector, splitting them on a space
         stringstream str;
         str << currentLine;
+        int counter = 0;
+        int edgeWeight = 0;
         while (getline(str, currentLine, ' ')) {
-            data.push_back(currentLine);
+            counter++;
+            if (counter != 3) {
+                data.push_back(currentLine);
+            }
+            else {
+                edgeWeight = atoi(currentLine.c_str());
+            }
         }
 
         /**
@@ -48,7 +56,7 @@ void AdjecencyMatrix::fileRead(string fileName) {
             GraphNode connectionNode;
             connectionNode.value = data.at(i);
 
-            insertEdge(headNode, connectionNode);
+            insertEdge(headNode, connectionNode, edgeWeight);
         }
     }
     file.close();
@@ -84,13 +92,16 @@ void AdjecencyMatrix::insertVertex(GraphNode node) {
 
 } //insert a vertex into the matrix
 
-void AdjecencyMatrix::insertEdge(GraphNode node1, GraphNode node2) {
+void AdjecencyMatrix::insertEdge(GraphNode node1, GraphNode node2, int edgeWeight) {
     int headIndex = getIndex(node1);
     int connectionIndex = getIndex(node2);
 
     //make sure both vertices exist
     assert (headIndex != -1);
     assert (connectionIndex != -1);
+
+    Reference[headIndex].outWeight.push_back(edgeWeight);
+    Reference[headIndex].adjacent.push_back(Reference[connectionIndex]);
 
     //it goes this way, as the graph may be dirsected, so we cannot do both ways
     Matrix[headIndex][connectionIndex] = 1; //can change this to a variable to show edge weights

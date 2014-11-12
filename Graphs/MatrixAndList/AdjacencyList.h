@@ -40,7 +40,7 @@ public:
 
     void fileRead(string fileName); //read a graph from a file, and assemble it into a list
     void insertVertex(GraphNode node); //insert a vertex into the list
-    void insertEdge(GraphNode node1, GraphNode node2); //insert an edge between 2 verticies
+    void insertEdge(GraphNode node1, GraphNode node2, int edgeWeight); //insert an edge between 2 verticies
     bool adjQueuery(GraphNode node1, GraphNode node2); //check if 2 vertices are adjacent
     void printList(); //print the list
     void DFT(); //Depth First Traversal

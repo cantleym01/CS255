@@ -1,22 +1,22 @@
-A A
-A B
-A C
-A D
-A E
-A F
-A G
-G G
-G A
-G B
-G C
-G D
-G E
-G F
-B D
-C C
-C E
-D C
-D E
-E C
-E E
-F D
+A A 1
+A B 3
+A C 4
+A D 7
+A E 9
+A F 3
+A G 3
+G G 3
+G A 3
+G B 10
+G C 6
+G D 8
+G E 20
+G F 30
+B D 2
+C C 3
+C E 1
+D C 1
+D E 1
+E C 12
+E E 15
+F D 4

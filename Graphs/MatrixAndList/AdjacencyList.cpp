@@ -23,8 +23,16 @@ void AdjecencyList::fileRead(string fileName) {
         //split contents up into a vector, splitting them on a space
         stringstream str;
         str << currentLine;
+        int counter = 0;
+        int edgeWeight = 0;
         while (getline(str, currentLine, ' ')) {
-            data.push_back(currentLine);
+            counter++;
+            if (counter != 3) {
+                data.push_back(currentLine);
+            }
+            else {
+                edgeWeight = atoi(currentLine.c_str());
+            }
         }
 
         /**
@@ -47,7 +55,7 @@ void AdjecencyList::fileRead(string fileName) {
 
             GraphNode connectionNode;
             connectionNode.value = data.at(i);
-            insertEdge(headNode, connectionNode);
+            insertEdge(headNode, connectionNode, edgeWeight);
         }
     }
     file.close();
@@ -61,7 +69,7 @@ void AdjecencyList::insertVertex(GraphNode node) {
     }
 } //insert a vertex into the list
 
-void AdjecencyList::insertEdge(GraphNode node1, GraphNode node2) {
+void AdjecencyList::insertEdge(GraphNode node1, GraphNode node2, int edgeWeight) {
     int index1 = getIndex(node1);
     int index2 = getIndex(node2);
 
@@ -71,6 +79,7 @@ void AdjecencyList::insertEdge(GraphNode node1, GraphNode node2) {
 
     edges++;
     Reference[index1].adjacent.push_back(Reference[index2]);
+    Reference[index1].outWeight.push_back(edgeWeight);
 }//insert an edge between 2 verticies
 
 bool AdjecencyList::adjQueuery(GraphNode node1, GraphNode node2) {
@@ -96,11 +105,11 @@ bool AdjecencyList::adjQueuery(GraphNode node1, GraphNode node2) {
 
 void AdjecencyList::printList() {
     for (int i = 0; i < Reference.size(); i++) {
-        GraphNode temp = Reference[i];
-        cout << temp.value << " -> ";
-        for (int j = 0; j < temp.adjacent.size(); j++) {
-            GraphNode temp2 = temp.adjacent[j];
-            cout << temp2.value << " ";
+        GraphNode temp1 = Reference[i];
+        cout << temp1.value << " -> ";
+        for (int j = 0; j < temp1.adjacent.size(); j++) {
+            GraphNode temp2 = temp1.adjacent[j];
+            cout << temp1.outWeight[j] << temp2.value << " ";
         }
         cout << endl;
     }
