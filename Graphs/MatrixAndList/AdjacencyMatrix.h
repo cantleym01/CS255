@@ -10,6 +10,8 @@
 #include <queue>
 #include "GraphNode.h"
 
+#define infinity 2147483647 //infinity is the max int size
+
 using namespace std; //no std::
 
 /**
@@ -17,9 +19,12 @@ using namespace std; //no std::
     FILE FORMAT FOR GRAPHS (Example):
 
     file:
-    A B C
-    B A C
-    C A B
+    A B
+    A C
+    B A
+    B C
+    C A
+    C B
 
     graph:
       A
@@ -46,6 +51,10 @@ public:
     void DFT(); //Depth First Traversal
     void BFT(); //Breadth First Traversal
 
+    //weighted graph algorithms
+    void Dijkstras(); //do Dijkstra's algorithm
+    void Prims(); //do Prim's algorithm
+
 private:
     int vertices; //how ever many vertices there are, the size of the matrix is vertices^2
                   //(i.e. the outervector being size 4, means the matrix size is 16)
@@ -57,7 +66,10 @@ private:
     int getIndex(GraphNode node); //get the index # of the graph node given
     void DFTRec(GraphNode node); //Depth First Traversal
     void BFTRec(GraphNode node); //Breadth First Traversal
-    queue<GraphNode> BFTQueue;
+    queue<GraphNode> Queue;
+
+    priority_queue<GraphNode> DijkstraQueue;
+    priority_queue<GraphNode> PrimQueue;
 };
 
 #endif

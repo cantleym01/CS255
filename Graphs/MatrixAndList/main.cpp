@@ -9,15 +9,17 @@ int main()
 {
     AdjecencyMatrix Matrix;
     cout << "Adjacency Matrix" << endl;
-    Matrix.fileRead("lantern.txt");
+    Matrix.fileRead("treeTest.txt");
     Matrix.printMatrix();
     Matrix.DFT();
     Matrix.BFT();
+    Matrix.Dijkstras();
+    Matrix.Prims();
 cout << "___________________" << endl;
 cout << endl;
     AdjecencyList List;
     cout << "Adjacency List" << endl;
-    List.fileRead("lantern.txt");
+    List.fileRead("treeTest.txt");
     List.printList();
     List.DFT();
     List.BFT();

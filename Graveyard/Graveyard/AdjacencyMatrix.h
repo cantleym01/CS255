@@ -1,5 +1,5 @@
-#ifndef ADJACENCYLIST_H
-#define ADJACENCYLIST_H
+#ifndef ADJACENCYMATRIX_H
+#define ADJACENCYMATRIX_H
 
 #include <iostream> //input & output
 #include <assert.h> //assert()
@@ -10,7 +10,6 @@
 #include <queue>
 #include "GraphNode.h"
 
-#define infinity 2147483647 //infinity is the max int size
 using namespace std; //no std::
 
 /**
@@ -30,30 +29,32 @@ using namespace std; //no std::
      / \
     B - C
 
-   list:
-   A -> B C
-   B -> A C
-   C -> A B
+   matrix:
+   0 1 1
+   1 0 1
+   1 1 0
 
 */
 
-class AdjecencyList {
+class AdjecencyMatrix {
 public:
-    AdjecencyList();
-    ~AdjecencyList();
+    AdjecencyMatrix();
+    ~AdjecencyMatrix();
 
-    void fileRead(string fileName); //read a graph from a file, and assemble it into a list
-    void insertVertex(GraphNode node); //insert a vertex into the list
+    void fileRead(string fileName); //read a graph from a file, and assemble it into a matrix
+    void insertVertex(GraphNode node); //insert a vertex into the matrix
     void insertEdge(GraphNode node1, GraphNode node2, int edgeWeight); //insert an edge between 2 verticies
     bool adjQueuery(GraphNode node1, GraphNode node2); //check if 2 vertices are adjacent
-    void printList(); //print the list
+    void printMatrix(); //print the matrix
     void DFT(); //Depth First Traversal
     void BFT(); //Breadth First Traversal
 
 private:
-    int vertices;
+    int vertices; //how ever many vertices there are, the size of the matrix is vertices^2
+                  //(i.e. the outervector being size 4, means the matrix size is 16)
     int edges;
 
+    vector<vector<int> > Matrix;
     vector<GraphNode> Reference;
 
     int getIndex(GraphNode node); //get the index # of the graph node given
@@ -63,4 +64,3 @@ private:
 };
 
 #endif
-
