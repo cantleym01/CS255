@@ -1,14 +1,5 @@
 #include "AdjacencyMatrix.h"
 
-//operation overload to use graphnodes in the priority queue
-/*
-Priority Queue needs to be from least to greatest, not greatest to least, so a < b returns a > b
-*/
-bool operator <(const GraphNode &a, const GraphNode &b)
-{
-    return a.distance > b.distance;
-}
-
 AdjecencyMatrix::AdjecencyMatrix() {
     vertices = 0;
     edges = 0;
@@ -116,6 +107,11 @@ void AdjecencyMatrix::insertEdge(GraphNode node1, GraphNode node2, int edgeWeigh
     Matrix[headIndex][connectionIndex] = 1; //can change this to a variable to show edge weights
 
     edges++;
+    Edge temp;
+    temp.source = Reference[headIndex];
+    temp.target = Reference[connectionIndex];
+    temp.weight = edgeWeight;
+    EdgeRef.push_back(temp);
 } //insert an edge between 2 verticies
 
 bool AdjecencyMatrix::adjQueuery(GraphNode node1, GraphNode node2) {
@@ -324,3 +320,85 @@ void AdjecencyMatrix::Prims() {
         Reference[i].isVisited = false;
     }
 } //do Prim's algorithm
+
+void AdjecencyMatrix::Kruskals() {
+    vector<Edge> path; //the minimal spanning tree of the graph
+
+    //sort the edges in the graph, since Kruskals cannot do directed graphs, make
+    //sure the input file was made as such (it will not crash, just not account extra edges
+    EdgeSort(EdgeRef);
+
+    for(int i = 0; i < EdgeRef.size(); i++) {
+        //to check if there is a cycle, I will test for it by seeing if both of sides of the new
+        //edge is within the current minimal spanning tree
+        bool firstMatch = false; //source is already in path
+        bool secondMatch = false; //target is already in path
+        for(int j = 0; j < path.size(); j++) {
+            //source check
+            if (EdgeRef[i].source.value == path[j].source.value || EdgeRef[i].source.value == path[j].target.value) {
+                firstMatch = true;
+            }
+            //target check
+            if (EdgeRef[i].target.value == path[j].source.value || EdgeRef[i].target.value == path[j].target.value) {
+                secondMatch = true;
+            }
+        }
+        //only one or both verticies exist at the moment, adding that edge is legal
+        if (!firstMatch || !secondMatch) {
+            path.push_back(EdgeRef[i]);
+        }
+    }
+
+    cout << "Kruskal's Algorithm: " << endl;
+    //print out the path
+    for (int i = 0; i < path.size(); i++) {
+        cout << path[i].source.value << " -" << path[i].weight << "- " << path[i].target.value << endl;
+    }
+} //do Kruskal's algorithm
+
+void AdjecencyMatrix::FloydWarshalls() {
+
+} //do FloydWarshall's algorithm
+
+void AdjecencyMatrix::EdgeSort(vector<Edge>& Array)
+{
+    bool Done = false;
+    if (Array.size() > 1) //if there is something to sort, sort it
+    {
+        Edge temp; //temp to help swap
+        int indexOfMin = 0; //the index of the minumum number
+
+        while (true)
+        {
+            Done = true; //var to check if we are done
+
+            for (int i = 0; i < Array.size() - 1; i++)
+            {
+                indexOfMin = i;
+
+                //find the minumum number in the array
+                for (int j = i + 1; j < Array.size(); j++)
+                {
+                    if (Array.at(j).weight < Array.at(indexOfMin).weight)
+                    {
+                        indexOfMin = j;
+                    }
+                }
+
+                if (Array.at(indexOfMin).weight < Array.at(i).weight) //if the current val is > index of min, swap
+                {
+                    //swap data
+                    temp = Array.at(indexOfMin);
+                    Array.at(indexOfMin) = Array.at(i);
+                    Array.at(i) = temp;
+
+                    Done = false; //we should be done by now, but this is just insurance
+                }
+            }
+            if (Done) //if we are done, exit
+            {
+                break;
+            }
+        }
+    }
+} //sort a vector with selection sort

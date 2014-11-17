@@ -26,6 +26,11 @@ public:
             //i.e. A B C means A points to both B and C, but doesn't mean C or B points to A
 
     int distance; //the weight counter used for traversing algorithms such as dijkstra's
+
+    friend bool operator <(const GraphNode &a, const GraphNode &b)
+    {
+        return a.distance > b.distance;
+    }
 };
 
 #endif

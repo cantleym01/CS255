@@ -1,25 +1,25 @@
 # depslib dependency file v1.0
-1416165325 source:c:\users\michael\documents\github\cs255\graphs\matrixandlist\main.cpp
+1416199595 source:c:\users\michael\documents\github\cs255\graphs\matrixandlist\main.cpp
 	<iostream>
 	"AdjacencyMatrix.h"
 	"AdjacencyList.h"
 	"GraphNode.h"
 
-1415754259 source:c:\users\michael\documents\github\cs255\graphs\matrixandlist\adjacencylist.cpp
+1416199056 source:c:\users\michael\documents\github\cs255\graphs\matrixandlist\adjacencylist.cpp
 	"AdjacencyList.h"
 
 1416087064 source:c:\users\michael\documents\github\cs255\graphs\matrixandlist\graphnode.cpp
 	"GraphNode.h"
 
-1416086997 c:\users\michael\documents\github\cs255\graphs\matrixandlist\graphnode.h
+1416199549 c:\users\michael\documents\github\cs255\graphs\matrixandlist\graphnode.h
 	<iostream>
 	<assert.h>
 	<vector>
 
-1416165364 source:c:\users\michael\documents\github\cs255\graphs\matrixandlist\adjacencymatrix.cpp
+1416199056 source:c:\users\michael\documents\github\cs255\graphs\matrixandlist\adjacencymatrix.cpp
 	"AdjacencyMatrix.h"
 
-1416116420 c:\users\michael\documents\github\cs255\graphs\matrixandlist\adjacencymatrix.h
+1416199056 c:\users\michael\documents\github\cs255\graphs\matrixandlist\adjacencymatrix.h
 	<iostream>
 	<assert.h>
 	<vector>
@@ -27,9 +27,11 @@
 	<sstream>
 	<stdlib.h>
 	<queue>
+	"Edge.h"
 	"GraphNode.h"
+	"oppOverload.h"
 
-1416087918 c:\users\michael\documents\github\cs255\graphs\matrixandlist\adjacencylist.h
+1416199056 c:\users\michael\documents\github\cs255\graphs\matrixandlist\adjacencylist.h
 	<iostream>
 	<assert.h>
 	<vector>
@@ -38,6 +40,14 @@
 	<stdlib.h>
 	<queue>
 	"GraphNode.h"
+	"Edge.h"
+	"oppOverload.h"
 
 1416109691 c:\users\michael\documents\github\cs255\graphs\matrixandlist\dijkstraqueue.h
+
+1416188131 c:\users\michael\documents\github\cs255\graphs\matrixandlist\edge.h
+	<iostream>
+	"GraphNode.h"
+
+1416199549 c:\users\michael\documents\github\cs255\graphs\matrixandlist\oppoverload.h
 

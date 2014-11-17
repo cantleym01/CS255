@@ -6,7 +6,7 @@ A Z 20
 Z A 20
 B C 3
 C B 3
-B Z 12
-Z B 12
+B Z 16
+Z B 16
 C G 2
 G C 2

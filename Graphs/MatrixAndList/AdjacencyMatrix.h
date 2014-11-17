@@ -8,7 +8,9 @@
 #include <sstream> //stringstream
 #include <stdlib.h> //atoi
 #include <queue>
+#include "Edge.h"
 #include "GraphNode.h"
+#include "oppOverload.h"
 
 #define infinity 2147483647 //infinity is the max int size
 
@@ -52,8 +54,11 @@ public:
     void BFT(); //Breadth First Traversal
 
     //weighted graph algorithms
+    //NOTE: PRIMS & KRUSKAL'S WON'T WORK ACCURATELY FOR A DIRECTED GRAPH
     void Dijkstras(); //do Dijkstra's algorithm
     void Prims(); //do Prim's algorithm
+    void Kruskals(); //do Kruskal's algorithm
+    void FloydWarshalls(); //do FloydWarshall's algorithm
 
 private:
     int vertices; //how ever many vertices there are, the size of the matrix is vertices^2
@@ -62,6 +67,8 @@ private:
 
     vector<vector<int> > Matrix;
     vector<GraphNode> Reference;
+    vector<Edge> EdgeRef;
+    void EdgeSort(vector<Edge>& Array);
 
     int getIndex(GraphNode node); //get the index # of the graph node given
     void DFTRec(GraphNode node); //Depth First Traversal

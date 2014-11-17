@@ -9,19 +9,25 @@ int main()
 {
     AdjecencyMatrix Matrix;
     cout << "Adjacency Matrix" << endl;
-    Matrix.fileRead("treeTest.txt");
+    Matrix.fileRead("graphTest.txt");
     Matrix.printMatrix();
     Matrix.DFT();
     Matrix.BFT();
     Matrix.Dijkstras();
     Matrix.Prims();
+    Matrix.Kruskals();
+    Matrix.FloydWarshalls();
 cout << "___________________" << endl;
 cout << endl;
     AdjecencyList List;
     cout << "Adjacency List" << endl;
-    List.fileRead("treeTest.txt");
+    List.fileRead("graphTest.txt");
     List.printList();
     List.DFT();
     List.BFT();
+    List.Dijkstras();
+    List.Prims();
+    List.Kruskals();
+    List.FloydWarshalls();
     return 0;
 }

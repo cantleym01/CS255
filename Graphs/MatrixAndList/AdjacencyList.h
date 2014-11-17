@@ -9,6 +9,8 @@
 #include <stdlib.h> //atoi
 #include <queue>
 #include "GraphNode.h"
+#include "Edge.h"
+#include "oppOverload.h"
 
 #define infinity 2147483647 //infinity is the max int size
 using namespace std; //no std::
@@ -49,17 +51,27 @@ public:
     void printList(); //print the list
     void DFT(); //Depth First Traversal
     void BFT(); //Breadth First Traversal
+    //weighted graph algorithms
+    //NOTE: PRIMS & KRUSKAL'S WON'T WORK ACCURATELY FOR A DIRECTED GRAPH
+    void Dijkstras(); //do Dijkstra's algorithm
+    void Prims(); //do Prim's algorithm
+    void Kruskals(); //do Kruskal's algorithm
+    void FloydWarshalls(); //do FloydWarshall's algorithm
 
 private:
     int vertices;
     int edges;
 
     vector<GraphNode> Reference;
+    vector<Edge> EdgeRef;
+    void EdgeSort(vector<Edge>& Array);
 
     int getIndex(GraphNode node); //get the index # of the graph node given
     void DFTRec(GraphNode node); //Depth First Traversal
     void BFTRec(GraphNode node); //Breadth First Traversal
     queue<GraphNode> BFTQueue;
+    priority_queue<GraphNode> DijkstraQueue;
+    priority_queue<GraphNode> PrimQueue;
 };
 
 #endif
