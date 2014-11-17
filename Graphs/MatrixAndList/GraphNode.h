@@ -27,9 +27,15 @@ public:
 
     int distance; //the weight counter used for traversing algorithms such as dijkstra's
 
+    //some operation overloading to make life easy
     friend bool operator <(const GraphNode &a, const GraphNode &b)
     {
         return a.distance > b.distance;
+    }
+
+    friend bool operator ==(const GraphNode &a, const GraphNode &b)
+    {
+        return a.value == b.value;
     }
 };
 

@@ -10,7 +10,6 @@
 #include <queue>
 #include "GraphNode.h"
 #include "Edge.h"
-#include "oppOverload.h"
 
 #define infinity 2147483647 //infinity is the max int size
 using namespace std; //no std::

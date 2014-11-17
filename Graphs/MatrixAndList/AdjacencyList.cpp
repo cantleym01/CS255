@@ -62,7 +62,7 @@ void AdjecencyList::fileRead(string fileName) {
 } //read a graph from a file, and assemble it into a list
 
 void AdjecencyList::insertVertex(GraphNode node) {
-    //if returns null, that means the node does not exist yet
+    //if returns -1, that means the node does not exist yet
     if (getIndex(node) == -1) {
         vertices++;
         Reference.push_back(node);
@@ -97,12 +97,12 @@ bool AdjecencyList::adjQueuery(GraphNode node1, GraphNode node2) {
     assert (index2 != -1);
 
     for (int i = 0; i < Reference[index1].adjacent.size(); i++) {
-        if (Reference[index1].adjacent[i].value == node2.value) {
+        if (Reference[index1].adjacent[i] == node2) {
             return true;
         }
     }
     for (int i = 0; i < Reference[index2].adjacent.size(); i++) {
-        if (Reference[index2].adjacent[i].value == node1.value) {
+        if (Reference[index2].adjacent[i] == node1) {
             return true;
         }
     }
@@ -123,7 +123,7 @@ void AdjecencyList::printList() {
 
 int AdjecencyList::getIndex(GraphNode node) {
     for (int i = 0; i < Reference.size(); i++) {
-        if (Reference[i].value == node.value) {
+        if (Reference[i] == node) {
             return i; //return the correct index
         }
     }
@@ -312,11 +312,11 @@ void AdjecencyList::Kruskals() {
         bool secondMatch = false; //target is already in path
         for(int j = 0; j < path.size(); j++) {
             //source check
-            if (EdgeRef[i].source.value == path[j].source.value || EdgeRef[i].source.value == path[j].target.value) {
+            if (EdgeRef[i].source == path[j].source || EdgeRef[i].source == path[j].target) {
                 firstMatch = true;
             }
             //target check
-            if (EdgeRef[i].target.value == path[j].source.value || EdgeRef[i].target.value == path[j].target.value) {
+            if (EdgeRef[i].target == path[j].source || EdgeRef[i].target == path[j].target) {
                 secondMatch = true;
             }
         }

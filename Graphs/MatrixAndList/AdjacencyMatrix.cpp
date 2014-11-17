@@ -67,7 +67,7 @@ void AdjecencyMatrix::insertVertex(GraphNode node) {
 
     //Trace through the reference list to see if the vertex currently exists
     for (index = 0; index < Reference.size(); index++) {
-        if (Reference[index].value == node.value) {
+        if (Reference[index] == node) {
             return; //vertex exists, don't insert it
         }
     }
@@ -131,7 +131,7 @@ bool AdjecencyMatrix::adjQueuery(GraphNode node1, GraphNode node2) {
 
 int AdjecencyMatrix::getIndex(GraphNode node) {
     for (int i = 0; i < Reference.size(); i++) {
-        if (Reference[i].value == node.value) {
+        if (Reference[i] == node) {
             return i; //return the correct index
         }
     }
@@ -196,7 +196,6 @@ void AdjecencyMatrix::DFTRec(GraphNode node) {
             }
         }
     }
-
 } //Depth First Traversal
 
 void AdjecencyMatrix::BFTRec(GraphNode node) {
@@ -335,11 +334,11 @@ void AdjecencyMatrix::Kruskals() {
         bool secondMatch = false; //target is already in path
         for(int j = 0; j < path.size(); j++) {
             //source check
-            if (EdgeRef[i].source.value == path[j].source.value || EdgeRef[i].source.value == path[j].target.value) {
+            if (EdgeRef[i].source == path[j].source || EdgeRef[i].source == path[j].target) {
                 firstMatch = true;
             }
             //target check
-            if (EdgeRef[i].target.value == path[j].source.value || EdgeRef[i].target.value == path[j].target.value) {
+            if (EdgeRef[i].target == path[j].source || EdgeRef[i].target == path[j].target) {
                 secondMatch = true;
             }
         }
