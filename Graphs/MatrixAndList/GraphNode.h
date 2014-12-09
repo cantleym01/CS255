@@ -22,19 +22,16 @@ public:
     bool isVisited; //bool to tell if it has been visited in traversals
     vector<int> outWeight; //For a weighted graph
 
-    vector<GraphNode> adjacent; //list of pointers to all adjecent nodes with outward edges
-            //i.e. A B C means A points to both B and C, but doesn't mean C or B points to A
+    vector<GraphNode> adjacent; //list of the adjecent nodes
 
     int distance; //the weight counter used for traversing algorithms such as dijkstra's
 
     //some operation overloading to make life easy
-    friend bool operator <(const GraphNode &a, const GraphNode &b)
-    {
+    friend bool operator <(const GraphNode &a, const GraphNode &b){
         return a.distance > b.distance;
     }
 
-    friend bool operator ==(const GraphNode &a, const GraphNode &b)
-    {
+    friend bool operator ==(const GraphNode &a, const GraphNode &b){
         return a.value == b.value;
     }
 };

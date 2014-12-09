@@ -62,6 +62,202 @@ void AdjecencyMatrix::fileRead(string fileName) {
     file.close();
 } //read a graph from a file, and assemble it into a matrix
 
+void AdjecencyMatrix::GraveYard(string fileName) {
+    ifstream file;
+    string currentLine;
+    int length, width, row, col, row2, col2, edgeWeight;
+    int counter = 0;
+
+    file.open(fileName.c_str()); //open the file
+
+    assert(file.is_open()); //make sure file is open
+
+    //go throught the file and run the simulation
+    while(getline(file, currentLine) != "0 0") {
+        //input is done, so we quit
+        if (currentLine == "0 0") {
+            break;
+        }
+
+        //split contents up into a vector, splitting them on a space
+        stringstream str;
+        str << currentLine;
+        int k = 0;
+
+        //dimensions of new matrix
+        if (currentLine.size() == 3 && counter == 0) {
+            //convert the stream's contents into the lenght & width
+            while (getline(str, currentLine, ' ')) {
+                switch (k) {
+                    case 0:
+                        length = atoi(currentLine.c_str());
+                        break;
+                    case 1:
+                        width = atoi(currentLine.c_str());
+                        break;
+                }
+                k++; //go to next dimension
+            }
+
+            //now build the map, initializing it as everything adjacent is connected w/ weight 1
+            GraphNode start;
+            start.value = "start";
+            insertVertex(start); //insert the start
+            string grass = "grassa";
+            for (int i = 0; i < (width * length) - 2; i++) {
+                GraphNode temp;
+                grass[5]++;
+                temp.value = grass;
+                insertVertex(temp); //insert all of the other parts
+            }
+            GraphNode finish;
+            finish.value = "finish";
+            insertVertex(finish);
+
+            //now go through and add weighted connections to all adjacent parts
+            for (int i = 0; i < length; i++) {
+                for (int j = 0; j < width; j++) {
+                    if (i == length - 1 && j == width - 1) {
+                        //do nothing, this node is exit
+                    }
+                    else if (i == length - 1) {
+                        insertEdge(Reference[(i * length) + j], Reference[(i * length) + (j + 1)], 1);
+                        insertEdge(Reference[(i * length) + (j + 1)], Reference[(i * length) + j], 1);
+                    }
+                    else if (j == width - 1) {
+                        insertEdge(Reference[(i * length) + j], Reference[((i + 1) * length) + j], 1);
+                        insertEdge(Reference[((i + 1) * length) + j], Reference[(i * length) + j], 1);
+                    }
+                    else {
+                        insertEdge(Reference[(i * length) + j], Reference[(i * length) + (j + 1)], 1);
+                        insertEdge(Reference[(i * length) + j], Reference[((i + 1) * length) + j], 1);
+                        insertEdge(Reference[(i * length) + (j + 1)], Reference[(i * length) + j], 1);
+                        insertEdge(Reference[((i + 1) * length) + j], Reference[(i * length) + j], 1);
+                    }
+                }
+            }
+            insertVertex(finish); //insert the end
+            counter++; //next input will be grave stones
+        }
+        else if (currentLine.size() == 1 && counter == 1) { //ding-dong gravestones
+            int numOfStones = atoi(currentLine.c_str());
+            for (int i = 0; i < numOfStones; i++) {
+                getline(file, currentLine);
+                stringstream str;
+                str << currentLine;
+                k = 0;
+                while (getline(str, currentLine, ' ')) {
+                    switch (k) {
+                        case 0:
+                            row = atoi(currentLine.c_str());
+                            break;
+                        case 1:
+                            col = atoi(currentLine.c_str());
+                            break;
+                    }
+                    k++; //go to next dimension
+                }
+
+                if (row == 0 && col == width - 1) {
+                    removeEdge(Reference[(row * length) + col], Reference[((row + 1) * length) + col]); //down
+                    removeEdge(Reference[((row + 1) * length) + col], Reference[(row * length) + col]); //down
+                    removeEdge(Reference[(row * length) + col], Reference[(row * length) + col - 1]); //left
+                    removeEdge(Reference[(row * length) + col - 1], Reference[(row * length) + col]); //left
+                }//UR case
+                else if (col == 0 && row == length - 1) {
+                    removeEdge(Reference[(row * length) + col], Reference[((row - 1) * length) + col]); //up
+                    removeEdge(Reference[((row - 1) * length) + col], Reference[(row * length) + col]); //up
+                    removeEdge(Reference[(row * length) + col], Reference[(row * length) + col + 1]); //right
+                    removeEdge(Reference[(row * length) + col + 1], Reference[(row * length) + col]); //right
+                }//DL case
+                else if (col == width - 1) {
+                    removeEdge(Reference[(row * length) + col], Reference[((row - 1) * length) + col]); //up
+                    removeEdge(Reference[((row - 1) * length) + col], Reference[(row * length) + col]); //up
+                    removeEdge(Reference[(row * length) + col], Reference[((row + 1) * length) + col]); //down
+                    removeEdge(Reference[((row + 1) * length) + col], Reference[(row * length) + col]); //down
+                    removeEdge(Reference[(row * length) + col], Reference[(row * length) + col - 1]); //left
+                    removeEdge(Reference[(row * length) + col - 1], Reference[(row * length) + col]); //left
+                }//R case
+                else if (col == 0) {
+                    removeEdge(Reference[(row * length) + col], Reference[((row - 1) * length) + col]); //up
+                    removeEdge(Reference[((row - 1) * length) + col], Reference[(row * length) + col]); //up
+                    removeEdge(Reference[(row * length) + col], Reference[(row * length) + col + 1]); //right
+                    removeEdge(Reference[(row * length) + col + 1], Reference[(row * length) + col]); //right
+                    removeEdge(Reference[(row * length) + col], Reference[((row + 1) * length) + col]); //down
+                    removeEdge(Reference[((row + 1) * length) + col], Reference[(row * length) + col]); //down
+                }//L case
+                else if (row == 0) {
+                    removeEdge(Reference[(row * length) + col], Reference[(row * length) + col + 1]); //right
+                    removeEdge(Reference[(row * length) + col + 1], Reference[(row * length) + col]); //right
+                    removeEdge(Reference[(row * length) + col], Reference[((row + 1) * length) + col]); //down
+                    removeEdge(Reference[((row + 1) * length) + col], Reference[(row * length) + col]); //down
+                    removeEdge(Reference[(row * length) + col], Reference[(row * length) + col - 1]); //left
+                    removeEdge(Reference[(row * length) + col - 1], Reference[(row * length) + col]); //left
+                }//U case
+                else if (row == length - 1) {
+                    removeEdge(Reference[(row * length) + col], Reference[((row - 1) * length) + col]); //up
+                    removeEdge(Reference[((row - 1) * length) + col], Reference[(row * length) + col]); //up
+                    removeEdge(Reference[(row * length) + col], Reference[(row * length) + col + 1]); //right
+                    removeEdge(Reference[(row * length) + col + 1], Reference[(row * length) + col]); //right
+                    removeEdge(Reference[(row * length) + col], Reference[(row * length) + col - 1]); //left
+                    removeEdge(Reference[(row * length) + col - 1], Reference[(row * length) + col]); //left
+                }//D case
+                else {
+                    removeEdge(Reference[(row * length) + col], Reference[((row - 1) * length) + col]); //up
+                    removeEdge(Reference[((row - 1) * length) + col], Reference[(row * length) + col]); //up
+                    removeEdge(Reference[(row * length) + col], Reference[(row * length) + col + 1]); //right
+                    removeEdge(Reference[(row * length) + col + 1], Reference[(row * length) + col]); //right
+                    removeEdge(Reference[(row * length) + col], Reference[(row * length) + col - 1]); //left
+                    removeEdge(Reference[(row * length) + col - 1], Reference[(row * length) + col]); //left
+                    removeEdge(Reference[(row * length) + col], Reference[((row + 1) * length) + col]); //down
+                    removeEdge(Reference[((row + 1) * length) + col], Reference[(row * length) + col]); //down
+                }//normal case
+            }
+            counter++; //next input will be portals
+        }
+        else if (currentLine.size() == 1 && counter == 2) { //thinking with portals
+            int numOfPorts = atoi(currentLine.c_str());
+            for (int i = 0; i < numOfPorts; i++) {
+                getline(file, currentLine);
+                stringstream str;
+                str << currentLine;
+                k = 0;
+                while (getline(str, currentLine, ' ')) {
+                    switch (k) {
+                        case 0:
+                            row = atoi(currentLine.c_str());
+                            break;
+                        case 1:
+                            col = atoi(currentLine.c_str());
+                            break;
+                        case 2:
+                            row2 = atoi(currentLine.c_str());
+                            break;
+                        case 3:
+                            col2 = atoi(currentLine.c_str());
+                            break;
+                        case 4:
+                            edgeWeight = atoi(currentLine.c_str());
+                            break;
+                    }
+                    k++; //go to next dimension
+                }
+                //insert portal edge going only 1 way
+                insertEdge(Reference[(row * length) + col], Reference[(row2 * length) + col2], edgeWeight);
+            }
+            //next input will be dimensions again
+            counter = 0;
+
+            //output handling
+        }
+        else {
+            assert ("this should not be hit" == "but it was");
+        }
+    }
+    file.close();
+    Dijkstras();
+} //do the graveyard problem
+
 void AdjecencyMatrix::insertVertex(GraphNode node) {
     int index;
 
@@ -113,6 +309,36 @@ void AdjecencyMatrix::insertEdge(GraphNode node1, GraphNode node2, int edgeWeigh
     temp.weight = edgeWeight;
     EdgeRef.push_back(temp);
 } //insert an edge between 2 verticies
+
+void AdjecencyMatrix::removeEdge(GraphNode node1, GraphNode node2) {
+    int indexSource = getIndex(node1);
+    int indexTarget = getIndex(node2);
+
+    assert(indexSource != -1);
+    assert(indexTarget != -1);
+
+    //set it to 0 on matrix
+    Matrix[indexSource][indexTarget] = 0;
+
+    //now remove that edge from the edge reference
+    Edge tempEdge;
+    tempEdge.source = node1;
+    tempEdge.target = node2;
+    for (int i = 0; i < edges; i++) {
+        if (EdgeRef[i] == tempEdge) {
+            EdgeRef.erase(EdgeRef.begin() + i);
+        }
+    }
+
+    //now remove the adjacency indicater in the source
+    for (int i = 0; i < Reference[indexSource].adjacent.size(); i++) {
+        if (Reference[indexSource].adjacent[i] == node2){
+            Reference[indexSource].adjacent.erase(Reference[indexSource].adjacent.begin() + i);
+            Reference[indexSource].outWeight.erase(Reference[indexSource].outWeight.begin() + i);
+        }
+    }
+    edges--;
+} //remove an edge
 
 bool AdjecencyMatrix::adjQueuery(GraphNode node1, GraphNode node2) {
     int index1 = getIndex(node1);
@@ -221,7 +447,8 @@ void AdjecencyMatrix::BFTRec(GraphNode node) {
 
 
 void AdjecencyMatrix::Dijkstras() {
-    cout << "Dijkstra's Algorithm: " << endl;
+    vector<Edge> path;
+
     //initialize all verticies in the graph first
     Reference[0].distance = 0;
     DijkstraQueue.push(Reference[0]);
@@ -243,12 +470,36 @@ void AdjecencyMatrix::Dijkstras() {
             if (Reference[index].isVisited != true) {
                 compare = Reference[getIndex(sourceVertex)].distance + sourceVertex.outWeight[i];
                 if (compare < Reference[index].distance) {
-
-
-                    cout << sourceVertex.value << " -> " << Reference[index].value << endl;
-
-
                     Reference[index].distance = compare;
+
+                    if (Reference[getIndex(sourceVertex)].value == "grassb")
+                    {
+                        for (int i = 0; i < Reference[getIndex(sourceVertex)].adjacent.size(); i++)
+                        {
+                            cout << Reference[getIndex(sourceVertex)].adjacent[i].value;
+                        }
+                    }
+                    //look for an edge that needs to be replaced, index will be -1 if it does not exist
+                    int replaceIndex = -1;
+                    for (int j = 0; j < path.size(); j++) {
+                        if (path[j].target == Reference[index]) {
+                            replaceIndex = j;
+                            break;
+                        }
+                    }
+
+                    Edge tempEdge;
+                    tempEdge.source = sourceVertex;
+                    tempEdge.target = Reference[index];
+                    tempEdge.weight = sourceVertex.outWeight[i];
+
+                    //if there is no other path to that vertex already, add the edge
+                    if (replaceIndex == -1) {
+                        path.push_back(tempEdge);
+                    }
+                    else { //replace the old edge with the better edge
+                        path[replaceIndex] = tempEdge;
+                    }
 
                     //now we need to take everything off of the priority queue and put it back on
                     //so that we have the new priority order
@@ -265,6 +516,13 @@ void AdjecencyMatrix::Dijkstras() {
             }
         }
     }
+
+    //print out the path
+    cout << "Dijkstra's Algorithm: " << endl;
+    for (int i = 0; i < path.size(); i++) {
+        cout << path[i].source.value << " -" << path[i].weight << "- " << path[i].target.value << endl;
+    }
+
     //put all of the visited bools back to false
     for (int i = 0; i < vertices; i++) {
         Reference[i].isVisited = false;
@@ -272,7 +530,8 @@ void AdjecencyMatrix::Dijkstras() {
 } //do Dijkstra's algorithm
 
 void AdjecencyMatrix::Prims() {
-    cout << "Prim's Algorithm: " << endl;
+    vector<Edge> path;
+
     //initialize all verticies in the graph first
     Reference[0].distance = 0;
     PrimQueue.push(Reference[0]);
@@ -292,12 +551,29 @@ void AdjecencyMatrix::Prims() {
             int index = getIndex(sourceVertex.adjacent[i]); //this is the index of the next adjacent vertex
             if (Reference[index].isVisited != true) {
                 if (sourceVertex.outWeight[i] < Reference[index].distance) {
-
-
-                    cout << sourceVertex.value << " -> " << Reference[index].value << endl;
-
-
                     Reference[index].distance = sourceVertex.outWeight[i];
+
+                    //look for an edge that needs to be replaced, index will be -1 if it does not exist
+                    int replaceIndex = -1;
+                    for (int j = 0; j < path.size(); j++) {
+                        if (path[j].target == Reference[index]) {
+                            replaceIndex = j;
+                            break;
+                        }
+                    }
+
+                    Edge tempEdge;
+                    tempEdge.source = sourceVertex;
+                    tempEdge.target = Reference[index];
+                    tempEdge.weight = sourceVertex.outWeight[i];
+
+                    //if there is no other path to that vertex already, add the edge
+                    if (replaceIndex == -1) {
+                        path.push_back(tempEdge);
+                    }
+                    else { //replace the old edge with the better edge
+                        path[replaceIndex] = tempEdge;
+                    }
 
                     //now we need to take everything off of the priority queue and put it back on
                     //so that we have the new priority order
@@ -314,6 +590,13 @@ void AdjecencyMatrix::Prims() {
             }
         }
     }
+
+    //print out the path
+    cout << "Prim's Algorithm: " << endl;
+    for (int i = 0; i < path.size(); i++) {
+        cout << path[i].source.value << " -" << path[i].weight << "- " << path[i].target.value << endl;
+    }
+
     //put all of the visited bools back to false
     for (int i = 0; i < vertices; i++) {
         Reference[i].isVisited = false;

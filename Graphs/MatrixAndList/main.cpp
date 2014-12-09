@@ -7,6 +7,10 @@ using namespace std;
 
 int main()
 {
+    AdjecencyMatrix problem;
+    problem.GraveYard("GraveYard.txt");
+    //Matrix & List Stuff
+    /*
     AdjecencyMatrix Matrix;
     cout << "Adjacency Matrix" << endl;
     Matrix.fileRead("graphTest.txt");
@@ -29,5 +33,6 @@ cout << endl;
     List.Prims();
     List.Kruskals();
     List.FloydWarshalls();
+    */
     return 0;
 }

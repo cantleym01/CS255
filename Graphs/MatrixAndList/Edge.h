@@ -14,6 +14,14 @@ public:
     GraphNode source;
     GraphNode target;
     int weight;
+
+    bool contains(GraphNode node) {
+        return source == node || target == node;
+    }
+
+    friend bool operator ==(const Edge &a, const Edge &b){
+        return a.source == b.source && a.target == b.target;
+    }
 };
 
 #endif

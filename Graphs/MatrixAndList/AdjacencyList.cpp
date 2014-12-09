@@ -199,7 +199,8 @@ void AdjecencyList::BFTRec(GraphNode node) {
 } //Breadth First Traversal
 
 void AdjecencyList::Dijkstras() {
-    cout << "Dijkstra's Algorithm: " << endl;
+    vector<Edge> path;
+
     //initialize all verticies in the graph first
     Reference[0].distance = 0;
     DijkstraQueue.push(Reference[0]);
@@ -221,12 +222,29 @@ void AdjecencyList::Dijkstras() {
             if (Reference[index].isVisited != true) {
                 compare = Reference[getIndex(sourceVertex)].distance + sourceVertex.outWeight[i];
                 if (compare < Reference[index].distance) {
-
-
-                    cout << sourceVertex.value << " -> " << Reference[index].value << endl;
-
-
                     Reference[index].distance = compare;
+
+                    //look for an edge that needs to be replaced, index will be -1 if it does not exist
+                    int replaceIndex = -1;
+                    for (int j = 0; j < path.size(); j++) {
+                        if (path[j].target == Reference[index]) {
+                            replaceIndex = j;
+                            break;
+                        }
+                    }
+
+                    Edge tempEdge;
+                    tempEdge.source = sourceVertex;
+                    tempEdge.target = Reference[index];
+                    tempEdge.weight = sourceVertex.outWeight[i];
+
+                    //if there is no other path to that vertex already, add the edge
+                    if (replaceIndex == -1) {
+                        path.push_back(tempEdge);
+                    }
+                    else { //replace the old edge with the better edge
+                        path[replaceIndex] = tempEdge;
+                    }
 
                     //now we need to take everything off of the priority queue and put it back on
                     //so that we have the new priority order
@@ -243,6 +261,13 @@ void AdjecencyList::Dijkstras() {
             }
         }
     }
+
+    //print out the path
+    cout << "Dijkstra's Algorithm: " << endl;
+    for (int i = 0; i < path.size(); i++) {
+        cout << path[i].source.value << " -" << path[i].weight << "- " << path[i].target.value << endl;
+    }
+
     //put all of the visited bools back to false
     for (int i = 0; i < vertices; i++) {
         Reference[i].isVisited = false;
@@ -250,7 +275,8 @@ void AdjecencyList::Dijkstras() {
 } //do Dijkstra's algorithm
 
 void AdjecencyList::Prims() {
-    cout << "Prim's Algorithm: " << endl;
+    vector<Edge> path;
+
     //initialize all verticies in the graph first
     Reference[0].distance = 0;
     PrimQueue.push(Reference[0]);
@@ -270,12 +296,29 @@ void AdjecencyList::Prims() {
             int index = getIndex(sourceVertex.adjacent[i]); //this is the index of the next adjacent vertex
             if (Reference[index].isVisited != true) {
                 if (sourceVertex.outWeight[i] < Reference[index].distance) {
-
-
-                    cout << sourceVertex.value << " -> " << Reference[index].value << endl;
-
-
                     Reference[index].distance = sourceVertex.outWeight[i];
+
+                    //look for an edge that needs to be replaced, index will be -1 if it does not exist
+                    int replaceIndex = -1;
+                    for (int j = 0; j < path.size(); j++) {
+                        if (path[j].target == Reference[index]) {
+                            replaceIndex = j;
+                            break;
+                        }
+                    }
+
+                    Edge tempEdge;
+                    tempEdge.source = sourceVertex;
+                    tempEdge.target = Reference[index];
+                    tempEdge.weight = sourceVertex.outWeight[i];
+
+                    //if there is no other path to that vertex already, add the edge
+                    if (replaceIndex == -1) {
+                        path.push_back(tempEdge);
+                    }
+                    else { //replace the old edge with the better edge
+                        path[replaceIndex] = tempEdge;
+                    }
 
                     //now we need to take everything off of the priority queue and put it back on
                     //so that we have the new priority order
@@ -292,6 +335,13 @@ void AdjecencyList::Prims() {
             }
         }
     }
+
+    //print out the path
+    cout << "Prim's Algorithm: " << endl;
+    for (int i = 0; i < path.size(); i++) {
+        cout << path[i].source.value << " -" << path[i].weight << "- " << path[i].target.value << endl;
+    }
+
     //put all of the visited bools back to false
     for (int i = 0; i < vertices; i++) {
         Reference[i].isVisited = false;

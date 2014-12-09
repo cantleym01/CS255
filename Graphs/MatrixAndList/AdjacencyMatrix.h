@@ -47,6 +47,7 @@ public:
     void fileRead(string fileName); //read a graph from a file, and assemble it into a matrix
     void insertVertex(GraphNode node); //insert a vertex into the matrix
     void insertEdge(GraphNode node1, GraphNode node2, int edgeWeight); //insert an edge between 2 verticies
+    void removeEdge(GraphNode node1, GraphNode node2); //remove an edge
     bool adjQueuery(GraphNode node1, GraphNode node2); //check if 2 vertices are adjacent
     void printMatrix(); //print the matrix
     void DFT(); //Depth First Traversal
@@ -58,6 +59,9 @@ public:
     void Prims(); //do Prim's algorithm
     void Kruskals(); //do Kruskal's algorithm
     void FloydWarshalls(); //do FloydWarshall's algorithm
+
+    //Graveyard Problem Solution
+    void GraveYard(string fileName); //do the graveyard problem
 
 private:
     int vertices; //how ever many vertices there are, the size of the matrix is vertices^2
@@ -76,6 +80,8 @@ private:
 
     priority_queue<GraphNode> DijkstraQueue;
     priority_queue<GraphNode> PrimQueue;
+
+    void GraveYardInit();
 };
 
 #endif
