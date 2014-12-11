@@ -7,6 +7,7 @@ using namespace std;
 
 int main()
 {
+    //GraveYard Problem
     AdjecencyMatrix problemIP;
     problemIP.GraveYard("GraveYardIP.txt");
     AdjecencyMatrix problemNP;

@@ -161,60 +161,11 @@ void AdjecencyMatrix::GraveYard(string fileName) {
                     k++; //go to next dimension
                 }
 
-                if (row == 0 && col == width - 1) {
-                    removeEdge(Reference[(row * length) + col], Reference[((row + 1) * length) + col]); //down
-                    removeEdge(Reference[((row + 1) * length) + col], Reference[(row * length) + col]); //down
-                    removeEdge(Reference[(row * length) + col], Reference[(row * length) + col - 1]); //left
-                    removeEdge(Reference[(row * length) + col - 1], Reference[(row * length) + col]); //left
-                }//UR case
-                else if (col == 0 && row == length - 1) {
-                    removeEdge(Reference[(row * length) + col], Reference[((row - 1) * length) + col]); //up
-                    removeEdge(Reference[((row - 1) * length) + col], Reference[(row * length) + col]); //up
-                    removeEdge(Reference[(row * length) + col], Reference[(row * length) + col + 1]); //right
-                    removeEdge(Reference[(row * length) + col + 1], Reference[(row * length) + col]); //right
-                }//DL case
-                else if (col == width - 1) {
-                    removeEdge(Reference[(row * length) + col], Reference[((row - 1) * length) + col]); //up
-                    removeEdge(Reference[((row - 1) * length) + col], Reference[(row * length) + col]); //up
-                    removeEdge(Reference[(row * length) + col], Reference[((row + 1) * length) + col]); //down
-                    removeEdge(Reference[((row + 1) * length) + col], Reference[(row * length) + col]); //down
-                    removeEdge(Reference[(row * length) + col], Reference[(row * length) + col - 1]); //left
-                    removeEdge(Reference[(row * length) + col - 1], Reference[(row * length) + col]); //left
-                }//R case
-                else if (col == 0) {
-                    removeEdge(Reference[(row * length) + col], Reference[((row - 1) * length) + col]); //up
-                    removeEdge(Reference[((row - 1) * length) + col], Reference[(row * length) + col]); //up
-                    removeEdge(Reference[(row * length) + col], Reference[(row * length) + col + 1]); //right
-                    removeEdge(Reference[(row * length) + col + 1], Reference[(row * length) + col]); //right
-                    removeEdge(Reference[(row * length) + col], Reference[((row + 1) * length) + col]); //down
-                    removeEdge(Reference[((row + 1) * length) + col], Reference[(row * length) + col]); //down
-                }//L case
-                else if (row == 0) {
-                    removeEdge(Reference[(row * length) + col], Reference[(row * length) + col + 1]); //right
-                    removeEdge(Reference[(row * length) + col + 1], Reference[(row * length) + col]); //right
-                    removeEdge(Reference[(row * length) + col], Reference[((row + 1) * length) + col]); //down
-                    removeEdge(Reference[((row + 1) * length) + col], Reference[(row * length) + col]); //down
-                    removeEdge(Reference[(row * length) + col], Reference[(row * length) + col - 1]); //left
-                    removeEdge(Reference[(row * length) + col - 1], Reference[(row * length) + col]); //left
-                }//U case
-                else if (row == length - 1) {
-                    removeEdge(Reference[(row * length) + col], Reference[((row - 1) * length) + col]); //up
-                    removeEdge(Reference[((row - 1) * length) + col], Reference[(row * length) + col]); //up
-                    removeEdge(Reference[(row * length) + col], Reference[(row * length) + col + 1]); //right
-                    removeEdge(Reference[(row * length) + col + 1], Reference[(row * length) + col]); //right
-                    removeEdge(Reference[(row * length) + col], Reference[(row * length) + col - 1]); //left
-                    removeEdge(Reference[(row * length) + col - 1], Reference[(row * length) + col]); //left
-                }//D case
-                else {
-                    removeEdge(Reference[(row * length) + col], Reference[((row - 1) * length) + col]); //up
-                    removeEdge(Reference[((row - 1) * length) + col], Reference[(row * length) + col]); //up
-                    removeEdge(Reference[(row * length) + col], Reference[(row * length) + col + 1]); //right
-                    removeEdge(Reference[(row * length) + col + 1], Reference[(row * length) + col]); //right
-                    removeEdge(Reference[(row * length) + col], Reference[(row * length) + col - 1]); //left
-                    removeEdge(Reference[(row * length) + col - 1], Reference[(row * length) + col]); //left
-                    removeEdge(Reference[(row * length) + col], Reference[((row + 1) * length) + col]); //down
-                    removeEdge(Reference[((row + 1) * length) + col], Reference[(row * length) + col]); //down
-                }//normal case
+                //delete all edges associated to the gravestone
+                while (Reference[(row * length) + col].adjacent.size() > 0) {
+                    removeEdge(Reference[(row * length) + col], Reference[(row * length) + col].adjacent[0]);
+                    removeEdge(Reference[(row * length) + col].adjacent[0], Reference[(row * length) + col]);
+                }
             }
             counter++; //next input will be portals
         }
