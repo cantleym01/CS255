@@ -62,6 +62,7 @@ public:
 
     //Graveyard Problem Solution
     void GraveYard(string fileName); //do the graveyard problem
+    int GraveYardDijkstras();
 
 private:
     int vertices; //how ever many vertices there are, the size of the matrix is vertices^2
@@ -80,6 +81,7 @@ private:
 
     priority_queue<GraphNode> DijkstraQueue;
     priority_queue<GraphNode> PrimQueue;
+    queue<GraphNode> GraveYardQueue;
 
     void GraveYardInit();
 };

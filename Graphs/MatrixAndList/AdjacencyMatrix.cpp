@@ -74,10 +74,13 @@ void AdjecencyMatrix::GraveYard(string fileName) {
 
     //go throught the file and run the simulation
     while(getline(file, currentLine) != "0 0") {
+
         //input is done, so we quit
         if (currentLine == "0 0") {
             break;
         }
+
+        cout << "Loading... this may take a second..." << endl;
 
         //split contents up into a vector, splitting them on a space
         stringstream str;
@@ -245,17 +248,31 @@ void AdjecencyMatrix::GraveYard(string fileName) {
                 //insert portal edge going only 1 way
                 insertEdge(Reference[(row * length) + col], Reference[(row2 * length) + col2], edgeWeight);
             }
+
             //next input will be dimensions again
             counter = 0;
 
             //output handling
+            int output = GraveYardDijkstras();
+            switch(output) {
+            case 1:
+                cout << "Possible" << endl;
+                break;
+            case 2:
+                cout << "Not Possible" << endl;
+                break;
+            case 3:
+                cout << "Never" << endl;
+                break;
+            default:
+                assert (output != 0);
+            }
         }
         else {
             assert ("this should not be hit" == "but it was");
         }
     }
     file.close();
-    Dijkstras();
 } //do the graveyard problem
 
 void AdjecencyMatrix::insertVertex(GraphNode node) {
@@ -472,13 +489,6 @@ void AdjecencyMatrix::Dijkstras() {
                 if (compare < Reference[index].distance) {
                     Reference[index].distance = compare;
 
-                    if (Reference[getIndex(sourceVertex)].value == "grassb")
-                    {
-                        for (int i = 0; i < Reference[getIndex(sourceVertex)].adjacent.size(); i++)
-                        {
-                            cout << Reference[getIndex(sourceVertex)].adjacent[i].value;
-                        }
-                    }
                     //look for an edge that needs to be replaced, index will be -1 if it does not exist
                     int replaceIndex = -1;
                     for (int j = 0; j < path.size(); j++) {
@@ -684,3 +694,75 @@ void AdjecencyMatrix::EdgeSort(vector<Edge>& Array)
         }
     }
 } //sort a vector with selection sort
+
+
+int AdjecencyMatrix::GraveYardDijkstras() {
+    vector<Edge> path;
+    int ret = 0; //the return variable (1 = possible, 2 = impossible, 3 = never, 0 = error)
+
+    //initialize all verticies in the graph first
+    Reference[0].distance = 0;
+    GraveYardQueue.push(Reference[0]);
+    for (int i = 1; i < Reference.size(); i++) {
+        Reference[i].distance = infinity;
+        GraveYardQueue.push(Reference[i]);
+    }
+
+    while (GraveYardQueue.size() > 0) {
+        //get the source vertex for this loop of Dijkstra's
+        GraphNode sourceVertex = GraveYardQueue.front();
+        GraveYardQueue.pop();
+        Reference[getIndex(sourceVertex)].isVisited = true;
+
+        //now, loop through all of the source vertex's adjacent verticies, and compare weights
+        int compare = 0;
+        for (int i = 0; i < sourceVertex.adjacent.size(); i++) {
+            int index = getIndex(sourceVertex.adjacent[i]); //this is the index of the next adjacent vertex
+            if (Reference[index].isVisited != true) {
+                compare = Reference[getIndex(sourceVertex)].distance + sourceVertex.outWeight[i];
+                if (compare < Reference[index].distance) {
+                    Reference[index].distance = compare;
+
+                    //look for an edge that needs to be replaced, index will be -1 if it does not exist
+                    int replaceIndex = -1;
+                    for (int j = 0; j < path.size(); j++) {
+                        if (path[j].target == Reference[index]) {
+                            replaceIndex = j;
+                            break;
+                        }
+                    }
+
+                    Edge tempEdge;
+                    tempEdge.source = sourceVertex;
+                    tempEdge.target = Reference[index];
+                    tempEdge.weight = sourceVertex.outWeight[i];
+
+                    //if there is no other path to that vertex already, add the edge
+                    if (replaceIndex == -1) {
+                        path.push_back(tempEdge);
+                    }
+                    else { //replace the old edge with the better edge
+                        path[replaceIndex] = tempEdge;
+                    }
+                }
+            }
+        }
+    }
+
+    //put all of the visited bools back to false
+    for (int i = 0; i < vertices; i++) {
+        Reference[i].isVisited = false;
+    }
+
+    if (Reference.back().distance < 0) { //check for never case (ends in a negative time)
+        ret = 3;
+    }
+    else if (Reference.back().distance == infinity) { //it is not possible to reach
+        ret = 2;
+    }
+    else { //it was reach, and has a time of 0 or greater, so john is not in the past
+        ret = 1;
+    }
+
+    return ret;
+} //do Dijkstra's algorithm

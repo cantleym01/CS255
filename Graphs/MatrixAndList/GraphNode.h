@@ -28,7 +28,7 @@ public:
 
     //some operation overloading to make life easy
     friend bool operator <(const GraphNode &a, const GraphNode &b){
-        return a.distance > b.distance;
+        return a.distance >= b.distance;
     }
 
     friend bool operator ==(const GraphNode &a, const GraphNode &b){
