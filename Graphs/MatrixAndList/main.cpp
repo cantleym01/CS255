@@ -7,8 +7,12 @@ using namespace std;
 
 int main()
 {
-    AdjecencyMatrix problem;
-    problem.GraveYard("GraveYardN.txt");
+    AdjecencyMatrix problemIP;
+    problemIP.GraveYard("GraveYardIP.txt");
+    AdjecencyMatrix problemNP;
+    problemNP.GraveYard("GraveYardNP.txt");
+    AdjecencyMatrix problemN;
+    problemN.GraveYard("GraveYardN.txt");
 
     //Matrix & List Stuff
 /*
